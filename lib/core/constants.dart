@@ -5,6 +5,8 @@ class AppConstants {
 
   /// Open Exchange Rates API key — replace with your own key
   /// Get a free key at https://openexchangerates.org
+  /// ⚠️ Never commit a real API key here. Use environment variables or
+  /// a secure configuration file excluded from version control (.env).
   static const String exchangeRateApiKey = 'YOUR_API_KEY_HERE';
 
   static const String exchangeRateBaseUrl =
@@ -21,6 +23,10 @@ class AppConstants {
   static const String firestoreEntriesCollection = 'entries';
   static const String firestoreGroupsCollection = 'entry_groups';
   static const String firestoreCurrenciesCollection = 'currencies';
+
+  /// Approximate USD → THB rate used for initial rate calculations
+  /// (used when fetching fresh rates from Open Exchange Rates API)
+  static const double usdToThbFallbackRate = 35.7;
 
   /// Progress bar limits
   static const double progressBarMaxRedFlex = 3.0;

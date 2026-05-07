@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/constants.dart';
 import '../../data/models/currency.dart';
 import '../../providers/currency_providers.dart';
 
@@ -25,8 +26,8 @@ class _CurrencyManagementScreenState
       final repo = ref.read(currencyRepositoryProvider);
       final currencies = await repo.getAllCurrencies();
 
-      // USD rate for THB (base currency) is approx 35.7
-      const usdToThb = 35.7;
+      // USD rate for THB (base currency) — from AppConstants
+      final usdToThb = AppConstants.usdToThbFallbackRate;
       for (final currency in currencies) {
         final usdRate = rates[currency.code];
         if (usdRate != null && usdRate != 0) {

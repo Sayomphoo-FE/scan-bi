@@ -96,7 +96,9 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
           rateToBase: 1.0,
         ),
       );
-      final amountBase = amount / currency.rateToBase;
+      final amountBase = currency.rateToBase > 0
+          ? amount / currency.rateToBase
+          : amount;
       final dateStr = DateFormat('yyyy-MM-dd').format(_occurredAt);
 
       final entryRepo = ref.read(entryRepositoryProvider);

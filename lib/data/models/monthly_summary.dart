@@ -1,3 +1,5 @@
+import '../../core/constants.dart';
+
 class MonthlySummary {
   final double totalIncome;
   final double totalExpense;
@@ -13,12 +15,15 @@ class MonthlySummary {
       totalIncome == 0 ? 0 : (totalExpense / totalIncome * 100);
 
   /// Flex value for the red (expense) section of the progress bar.
-  /// Clamped between 1.0 and 3.0.
+  /// Clamped between [AppConstants.progressBarMinRedFlex] and [AppConstants.progressBarMaxRedFlex].
   double get redFlex {
-    if (totalIncome == 0) return 3.0;
-    if (balance <= 0) return 3.0;
+    if (totalIncome == 0) return AppConstants.progressBarMaxRedFlex;
+    if (balance <= 0) return AppConstants.progressBarMaxRedFlex;
     final ratio = totalExpense / totalIncome;
-    return ratio.clamp(1.0, 3.0);
+    return ratio.clamp(
+      AppConstants.progressBarMinRedFlex,
+      AppConstants.progressBarMaxRedFlex,
+    );
   }
 
   /// Flex value for the green (remaining) section — always 1.
