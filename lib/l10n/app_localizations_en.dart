@@ -153,4 +153,60 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loading => 'Loading...';
+
+  @override
+  String get items => 'Items';
+
+  @override
+  String get viewGroupDetail => 'View Group Detail';
+
+  @override
+  String get addEntryToGroup => 'Add Entry to Group';
+
+  @override
+  String get deleteEntireGroup => 'Delete Entire Group';
+
+  @override
+  String get icon => 'Icon';
+
+  @override
+  String get emoji => 'Emoji';
+
+  @override
+  String get material => 'Material';
+
+  @override
+  String get createGroup => 'Create Group';
+
+  @override
+  String get group => 'Group';
+
+  @override
+  String get groupNotFound => 'Group not found';
+
+  @override
+  String get noEntriesInGroup => 'No entries in this group';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get currency => 'Currency';
+
+  @override
+  String get addSingleEntry => 'Add Single Entry';
+
+  @override
+  String get groupNameRequired => 'Group name is required';
+
+  @override
+  String get noEntriesThisMonth => 'No entries this month';
+
+  @override
+  String deleteGroupConfirmWithCount(Object count) {
+    return 'Delete this group and all $count entries inside?';
+  }
+
+  @override
+  String get syncedWithGroupDate => 'Synced with group date';
 }

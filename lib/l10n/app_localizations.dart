@@ -385,6 +385,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Loading...'**
   String get loading;
+
+  /// No description provided for @items.
+  ///
+  /// In en, this message translates to:
+  /// **'Items'**
+  String get items;
+
+  /// No description provided for @viewGroupDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'View Group Detail'**
+  String get viewGroupDetail;
+
+  /// No description provided for @addEntryToGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Entry to Group'**
+  String get addEntryToGroup;
+
+  /// No description provided for @deleteEntireGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Entire Group'**
+  String get deleteEntireGroup;
+
+  /// No description provided for @icon.
+  ///
+  /// In en, this message translates to:
+  /// **'Icon'**
+  String get icon;
+
+  /// No description provided for @emoji.
+  ///
+  /// In en, this message translates to:
+  /// **'Emoji'**
+  String get emoji;
+
+  /// No description provided for @material.
+  ///
+  /// In en, this message translates to:
+  /// **'Material'**
+  String get material;
+
+  /// No description provided for @createGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Group'**
+  String get createGroup;
+
+  /// No description provided for @group.
+  ///
+  /// In en, this message translates to:
+  /// **'Group'**
+  String get group;
+
+  /// No description provided for @groupNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Group not found'**
+  String get groupNotFound;
+
+  /// No description provided for @noEntriesInGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'No entries in this group'**
+  String get noEntriesInGroup;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @currency.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency'**
+  String get currency;
+
+  /// No description provided for @addSingleEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Single Entry'**
+  String get addSingleEntry;
+
+  /// No description provided for @groupNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Group name is required'**
+  String get groupNameRequired;
+
+  /// No description provided for @noEntriesThisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'No entries this month'**
+  String get noEntriesThisMonth;
+
+  /// No description provided for @deleteGroupConfirmWithCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this group and all {count} entries inside?'**
+  String deleteGroupConfirmWithCount(Object count);
+
+  /// No description provided for @syncedWithGroupDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Synced with group date'**
+  String get syncedWithGroupDate;
 }
 
 class _AppLocalizationsDelegate

@@ -7,6 +7,7 @@ import 'package:uuid/uuid.dart';
 import '../../data/models/entry.dart';
 import '../../data/models/currency.dart';
 import '../../providers/entry_providers.dart';
+import '../../providers/group_providers.dart';
 import '../../providers/currency_providers.dart';
 import '../../core/constants.dart';
 import '../../l10n/app_localizations.dart';
@@ -46,8 +47,28 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
     super.initState();
     if (_isEditMode) {
       _loadEntry();
+    } else if (widget.groupId != null) {
+      _loadGroupDate();
     } else {
       _isLoadingEntry = false;
+    }
+  }
+
+  Future<void> _loadGroupDate() async {
+    try {
+      final group = await ref
+          .read(groupRepositoryProvider)
+          .getGroupById(widget.groupId!);
+      if (group != null && mounted) {
+        setState(() {
+          _occurredAt = DateTime.tryParse(group.createdAt) ?? DateTime.now();
+          _isLoadingEntry = false;
+        });
+      } else {
+        if (mounted) setState(() => _isLoadingEntry = false);
+      }
+    } catch (e) {
+      if (mounted) setState(() => _isLoadingEntry = false);
     }
   }
 
@@ -115,6 +136,7 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
           amountBase: amountBase,
           occurredAt: dateStr,
           updatedAt: DateTime.now().toIso8601String(),
+          groupId: _originalEntry!.groupId,
         );
         await entryRepo.updateEntry(updated);
       } else {
@@ -127,7 +149,7 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
           currencyCode: _currencyCode,
           amountBase: amountBase,
           occurredAt: dateStr,
-          groupId: widget.groupId,
+          groupId: _originalEntry?.groupId ?? widget.groupId,
         );
       }
 
@@ -308,25 +330,36 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
             ),
             const SizedBox(height: 12),
 
-            // Date picker (only show if not in a group)
-            if (widget.groupId == null) ...[
-              ListTile(
-                contentPadding: const EdgeInsets.only(left: 4),
-                leading: const Icon(Icons.calendar_today_outlined),
-                title: Text(
-                  DateFormat('dd MMM yyyy').format(_occurredAt),
-                  style: theme.textTheme.bodyLarge,
-                ),
-                subtitle: Text(AppLocalizations.of(context)!.date),
-                onTap: _pickDate,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                tileColor: theme.colorScheme.surfaceContainerHighest
-                    .withOpacity(0.5),
+            // Date picker (disabled if in a group)
+            ListTile(
+              contentPadding: const EdgeInsets.only(left: 4),
+              leading: const Icon(Icons.calendar_today_outlined),
+              title: Text(
+                DateFormat('dd MMM yyyy').format(_occurredAt),
+                style: theme.textTheme.bodyLarge,
               ),
-              const SizedBox(height: 24),
-            ],
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(AppLocalizations.of(context)!.date),
+                  if (_originalEntry?.groupId != null || widget.groupId != null)
+                    Text(
+                      AppLocalizations.of(context)!.syncedWithGroupDate,
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                ],
+              ),
+              onTap: (_originalEntry?.groupId != null || widget.groupId != null) ? null : _pickDate,
+              enabled: _originalEntry?.groupId == null && widget.groupId == null,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              tileColor: theme.colorScheme.surfaceContainerHighest
+                  .withOpacity(0.5),
+            ),
+            const SizedBox(height: 24),
 
             // Save button
             FilledButton(

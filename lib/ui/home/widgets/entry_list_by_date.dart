@@ -7,6 +7,7 @@ import '../../../data/models/entry_group.dart';
 import '../../../data/models/year_month.dart';
 import '../../../providers/entry_providers.dart';
 import '../../../providers/group_providers.dart';
+import '../../../l10n/app_localizations.dart';
 import 'date_group_header.dart';
 import 'standalone_entry_row.dart';
 import 'group_entry_card.dart';
@@ -24,15 +25,15 @@ class EntryListByDate extends ConsumerWidget {
     return entriesAsync.when(
       data: (entries) {
         if (entries.isEmpty) {
-          return const Center(
+          return Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.receipt_long_outlined, size: 64, color: Colors.grey),
-                SizedBox(height: 16),
+                const Icon(Icons.receipt_long_outlined, size: 64, color: Colors.grey),
+                const SizedBox(height: 16),
                 Text(
-                  'No entries this month',
-                  style: TextStyle(color: Colors.grey),
+                  AppLocalizations.of(context)!.noEntriesThisMonth,
+                  style: const TextStyle(color: Colors.grey),
                 ),
               ],
             ),

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../data/models/year_month.dart';
 import '../../providers/entry_providers.dart';
 import '../../providers/group_providers.dart';
+import '../../l10n/app_localizations.dart';
 import 'widgets/month_summary_card.dart';
 import 'widgets/entry_list_by_date.dart';
 
@@ -35,7 +36,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           IconButton(
             icon: const Icon(Icons.settings_outlined),
             onPressed: () => context.push('/settings'),
-            tooltip: 'Settings',
+            tooltip: AppLocalizations.of(context)!.settings,
           ),
         ],
       ),
@@ -61,29 +62,32 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   void _showAddOptions(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (ctx) => SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: const Icon(Icons.receipt_long_outlined),
-              title: const Text('Add Single Entry'),
-              onTap: () {
-                Navigator.pop(ctx);
-                context.push('/entry/add');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.folder_open_outlined),
-              title: const Text('Create Group'),
-              onTap: () {
-                Navigator.pop(ctx);
-                context.push('/group/add');
-              },
-            ),
-          ],
-        ),
-      ),
+      builder: (ctx) {
+        final l10n = AppLocalizations.of(ctx)!;
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.receipt_long_outlined),
+                title: Text(l10n.addSingleEntry),
+                onTap: () {
+                  Navigator.pop(ctx);
+                  context.push('/entry/add');
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.folder_open_outlined),
+                title: Text(l10n.createGroup),
+                onTap: () {
+                  Navigator.pop(ctx);
+                  context.push('/group/add');
+                },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

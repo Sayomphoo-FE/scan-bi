@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../data/models/currency.dart';
 import '../../../providers/currency_providers.dart';
+import '../../../l10n/app_localizations.dart';
 
 class CurrencySelector extends ConsumerWidget {
   final String selectedCode;
@@ -31,8 +32,8 @@ class CurrencySelector extends ConsumerWidget {
 
         return DropdownButtonFormField<String>(
           value: validCode,
-          decoration: const InputDecoration(
-            labelText: 'Currency',
+          decoration: InputDecoration(
+            labelText: AppLocalizations.of(context)!.currency,
           ),
           items: currencies.map((c) {
             return DropdownMenuItem(

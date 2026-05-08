@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/extensions/number_extensions.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../data/models/entry.dart';
 import '../../../data/models/entry_group.dart';
 import 'standalone_entry_row.dart';
@@ -92,7 +93,7 @@ class _GroupEntryCardState extends State<GroupEntryCard> {
                   Expanded(child: StandaloneEntryRow(entry: e)),
                   IconButton(
                     icon: const Icon(Icons.edit_outlined, size: 18),
-                    onPressed: () => context.push('/entry/${e.id}/edit'),
+                    onPressed: () => context.push('/entry/${e.id}/edit?groupId=${widget.group.id}'),
                     tooltip: 'Edit',
                   ),
                 ],
@@ -102,7 +103,7 @@ class _GroupEntryCardState extends State<GroupEntryCard> {
             TextButton(
               onPressed: () =>
                   context.push('/group/${widget.group.id}'),
-              child: const Text('View Group Detail'),
+              child: Text(AppLocalizations.of(context)!.viewGroupDetail),
             ),
           ],
         ],

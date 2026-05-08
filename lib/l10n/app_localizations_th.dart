@@ -151,4 +151,60 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get loading => 'กำลังโหลด...';
+
+  @override
+  String get items => 'รายการ';
+
+  @override
+  String get viewGroupDetail => 'ดูรายละเอียดกลุ่ม';
+
+  @override
+  String get addEntryToGroup => 'เพิ่มรายการเข้ากลุ่ม';
+
+  @override
+  String get deleteEntireGroup => 'ลบกลุ่มทั้งหมด';
+
+  @override
+  String get icon => 'ไอคอน';
+
+  @override
+  String get emoji => 'อีโมจิ';
+
+  @override
+  String get material => 'Material';
+
+  @override
+  String get createGroup => 'สร้างกลุ่ม';
+
+  @override
+  String get group => 'กลุ่ม';
+
+  @override
+  String get groupNotFound => 'ไม่พบกลุ่ม';
+
+  @override
+  String get noEntriesInGroup => 'ไม่มีรายการในกลุ่มนี้';
+
+  @override
+  String get delete => 'ลบ';
+
+  @override
+  String get currency => 'สกุลเงิน';
+
+  @override
+  String get addSingleEntry => 'เพิ่มรายการเดี่ยว';
+
+  @override
+  String get groupNameRequired => 'ต้องระบุชื่อกลุ่ม';
+
+  @override
+  String get noEntriesThisMonth => 'ไม่มีรายการในเดือนนี้';
+
+  @override
+  String deleteGroupConfirmWithCount(Object count) {
+    return 'ลบกลุ่มนี้และรายการทั้งหมด $count รายการ ภายใน หรือไม่?';
+  }
+
+  @override
+  String get syncedWithGroupDate => 'ซิงค์กับวันที่ของกลุ่ม';
 }

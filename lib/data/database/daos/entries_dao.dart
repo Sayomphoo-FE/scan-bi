@@ -103,6 +103,15 @@ class EntriesDao extends DatabaseAccessor<AppDatabase>
         .map((rows) => rows.map(_rowToModel).toList());
   }
 
+  /// Get entries for a specific group (future-based)
+  Future<List<EntryModel>> getEntriesByGroupId(String groupId) async {
+    final rows = await (select(entriesTable)
+          ..where((t) => t.groupId.equals(groupId))
+          ..orderBy([(t) => OrderingTerm.desc(t.occurredAt)]))
+        .get();
+    return rows.map(_rowToModel).toList();
+  }
+
   /// Watch monthly summary (income + expense totals)
   Stream<MonthlySummary> watchMonthlySummary(YearMonth yearMonth) {
     return watchEntriesForMonth(yearMonth).map((entries) {

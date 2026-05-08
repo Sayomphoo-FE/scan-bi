@@ -26,7 +26,7 @@ class StandaloneEntryRow extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            '$prefix${entry.currencyCode} ${entry.amount.toAmountString()}',
+            '$prefix฿ ${entry.amount.toAmountString()}',
             style: theme.textTheme.bodyMedium?.copyWith(
               color: amountColor,
               fontWeight: FontWeight.bold,

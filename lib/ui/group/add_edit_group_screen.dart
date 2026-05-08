@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../providers/group_providers.dart';
@@ -21,6 +22,7 @@ class _AddEditGroupScreenState extends ConsumerState<AddEditGroupScreen> {
   final _nameCtrl = TextEditingController();
   String _iconType = 'emoji';
   String _iconValue = '🗂️';
+  DateTime _groupDate = DateTime.now();
   bool _isLoading = false;
   bool _isLoadingGroup = true;
 
@@ -45,6 +47,7 @@ class _AddEditGroupScreenState extends ConsumerState<AddEditGroupScreen> {
         _nameCtrl.text = group.name;
         _iconType = group.iconType;
         _iconValue = group.iconValue;
+        _groupDate = DateTime.tryParse(group.createdAt) ?? DateTime.now();
         _isLoadingGroup = false;
       });
     } else {
@@ -69,19 +72,22 @@ class _AddEditGroupScreenState extends ConsumerState<AddEditGroupScreen> {
         final existing =
             await groupRepo.getGroupById(widget.groupId!);
         if (existing != null) {
-          await groupRepo.updateGroup(
-            existing.copyWith(
-              name: _nameCtrl.text.trim(),
-              iconType: _iconType,
-              iconValue: _iconValue,
-            ),
+          final updatedGroup = existing.copyWith(
+            name: _nameCtrl.text.trim(),
+            iconType: _iconType,
+            iconValue: _iconValue,
+            createdAt: _groupDate.toIso8601String(),
           );
+          await groupRepo.updateGroup(updatedGroup);
+          // Sync all entries' dates to match the group's new date
+          await groupRepo.updateGroupDateAndSyncEntries(widget.groupId!, _groupDate);
         }
       } else {
         final newId = await groupRepo.createGroup(
           name: _nameCtrl.text.trim(),
           iconType: _iconType,
           iconValue: _iconValue,
+          createdAt: _groupDate,
         );
         if (mounted) {
           context.go('/group/$newId');
@@ -126,13 +132,39 @@ class _AddEditGroupScreenState extends ConsumerState<AddEditGroupScreen> {
           children: [
             TextFormField(
               controller: _nameCtrl,
-              decoration: const InputDecoration(
-                labelText: 'Group Name',
-                hintText: 'e.g. Tops Receipt May 7',
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.groupName,
+                hintText: AppLocalizations.of(context)!.groupNameHint,
               ),
               validator: (v) => v == null || v.trim().isEmpty
-                  ? 'Group name is required'
+                  ? AppLocalizations.of(context)!.groupNameRequired
                   : null,
+            ),
+            const SizedBox(height: 12),
+            ListTile(
+              contentPadding: const EdgeInsets.only(left: 0),
+              leading: const Icon(Icons.calendar_today_outlined),
+              title: Text(
+                DateFormat('dd MMM yyyy').format(_groupDate),
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              subtitle: Text(AppLocalizations.of(context)!.date),
+              onTap: () async {
+                final picked = await showDatePicker(
+                  context: context,
+                  initialDate: _groupDate,
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime(2100),
+                );
+                if (picked != null) {
+                  setState(() => _groupDate = picked);
+                }
+              },
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              tileColor: Theme.of(context).colorScheme.surfaceContainerHighest
+                  .withOpacity(0.5),
             ),
             const SizedBox(height: 12),
             IconPickerWidget(
@@ -154,7 +186,7 @@ class _AddEditGroupScreenState extends ConsumerState<AddEditGroupScreen> {
                       width: 20,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : Text(_isEditMode ? 'Save Changes' : 'Create Group'),
+                  : Text(AppLocalizations.of(context)!.saveChanges),
             ),
           ],
         ),

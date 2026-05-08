@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../l10n/app_localizations.dart';
+
 /// A simple icon picker with two tabs: emoji and Material Icons
 class IconPickerWidget extends StatefulWidget {
   final String iconType;
@@ -88,9 +90,9 @@ class _IconPickerWidgetState extends State<IconPickerWidget>
           ),
           TabBar(
             controller: _tabController,
-            tabs: const [
-              Tab(text: 'Emoji'),
-              Tab(text: 'Material'),
+            tabs: [
+              Tab(text: AppLocalizations.of(context)!.emoji),
+              Tab(text: AppLocalizations.of(context)!.material),
             ],
           ),
           SizedBox(
