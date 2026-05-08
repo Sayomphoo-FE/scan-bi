@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/extensions/number_extensions.dart';
 import '../../../data/models/year_month.dart';
 import '../../../providers/monthly_summary_provider.dart';
 import 'progress_bar_widget.dart';

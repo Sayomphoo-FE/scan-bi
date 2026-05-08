@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../core/extensions/number_extensions.dart';
+
 class DateGroupHeader extends StatelessWidget {
   final String date; // "YYYY-MM-DD"
   final double dayNet;

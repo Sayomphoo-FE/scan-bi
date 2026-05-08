@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/extensions/number_extensions.dart';
 import '../../data/models/entry.dart';
 import '../../providers/entry_providers.dart';
 import '../../providers/group_providers.dart';

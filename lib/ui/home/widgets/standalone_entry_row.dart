@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/extensions/number_extensions.dart';
 import '../../../data/models/entry.dart';
 
 class StandaloneEntryRow extends StatelessWidget {
