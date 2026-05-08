@@ -45,23 +45,22 @@ class _BackupRestoreScreenState extends ConsumerState<BackupRestoreScreen> {
       await repo.backupToFirestore();
       final now = DateTime.now();
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(
-          AppConstants.prefLastBackup, now.toIso8601String());
+      await prefs.setString(AppConstants.prefLastBackup, now.toIso8601String());
       if (mounted) {
         setState(() {
           _lastBackup = now;
           _isWorking = false;
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Backup successful!')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Backup successful!')));
       }
     } catch (e) {
       if (mounted) {
         setState(() => _isWorking = false);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Backup failed: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Backup failed: $e')));
       }
     }
   }
@@ -95,16 +94,16 @@ class _BackupRestoreScreenState extends ConsumerState<BackupRestoreScreen> {
       await repo.restoreFromFirestore();
       if (mounted) {
         setState(() => _isWorking = false);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Restore successful!')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Restore successful!')));
       }
     } catch (e) {
       if (mounted) {
         setState(() => _isWorking = false);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Restore failed: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Restore failed: $e')));
       }
     }
   }

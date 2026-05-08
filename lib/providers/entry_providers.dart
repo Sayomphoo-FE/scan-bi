@@ -16,13 +16,16 @@ final allEntriesProvider = StreamProvider<List<EntryModel>>((ref) {
 });
 
 /// Watch entries for a specific month
-final monthEntriesProvider =
-    StreamProvider.family<List<EntryModel>, YearMonth>((ref, yearMonth) {
-  return ref.watch(entryRepositoryProvider).watchEntriesForMonth(yearMonth);
-});
+final monthEntriesProvider = StreamProvider.family<List<EntryModel>, YearMonth>(
+  (ref, yearMonth) {
+    return ref.watch(entryRepositoryProvider).watchEntriesForMonth(yearMonth);
+  },
+);
 
 /// Watch entries for a specific group
-final groupEntriesProvider =
-    StreamProvider.family<List<EntryModel>, String>((ref, groupId) {
+final groupEntriesProvider = StreamProvider.family<List<EntryModel>, String>((
+  ref,
+  groupId,
+) {
   return ref.watch(entryRepositoryProvider).watchEntriesForGroup(groupId);
 });

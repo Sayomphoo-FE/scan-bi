@@ -30,9 +30,9 @@ class CurrenciesDao extends DatabaseAccessor<AppDatabase>
   }
 
   Future<void> upsertCurrency(CurrencyModel currency) async {
-    await into(currenciesTable).insertOnConflictUpdate(
-      _modelToCompanion(currency),
-    );
+    await into(
+      currenciesTable,
+    ).insertOnConflictUpdate(_modelToCompanion(currency));
   }
 
   Future<void> deleteCurrency(String code) async {
@@ -40,22 +40,23 @@ class CurrenciesDao extends DatabaseAccessor<AppDatabase>
   }
 
   Future<CurrencyModel?> getCurrencyByCode(String code) async {
-    final row = await (select(currenciesTable)
-          ..where((t) => t.code.equals(code)))
+    final row = await (select(
+      currenciesTable,
+    )..where((t) => t.code.equals(code)))
         .getSingleOrNull();
     return row == null ? null : _rowToModel(row);
   }
 
   Stream<List<CurrencyModel>> watchAllCurrencies() {
-    return (select(currenciesTable)
-          ..orderBy([(t) => OrderingTerm.asc(t.code)]))
+    return (select(currenciesTable)..orderBy([(t) => OrderingTerm.asc(t.code)]))
         .watch()
         .map((rows) => rows.map(_rowToModel).toList());
   }
 
   Future<List<CurrencyModel>> getAllCurrencies() async {
-    final rows = await (select(currenciesTable)
-          ..orderBy([(t) => OrderingTerm.asc(t.code)]))
+    final rows = await (select(
+      currenciesTable,
+    )..orderBy([(t) => OrderingTerm.asc(t.code)]))
         .get();
     return rows.map(_rowToModel).toList();
   }

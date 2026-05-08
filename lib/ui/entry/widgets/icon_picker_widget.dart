@@ -24,9 +24,30 @@ class _IconPickerWidgetState extends State<IconPickerWidget>
   late TabController _tabController;
 
   static const _emojis = [
-    '💰', '🛒', '🍽️', '🚗', '🏠', '🏥', '📚', '✈️',
-    '🎮', '💼', '🎁', '💳', '🔧', '💊', '🎵', '📱',
-    '🧴', '🥩', '🥦', '🧀', '🍺', '☕', '⚽', '🎂',
+    '💰',
+    '🛒',
+    '🍽️',
+    '🚗',
+    '🏠',
+    '🏥',
+    '📚',
+    '✈️',
+    '🎮',
+    '💼',
+    '🎁',
+    '💳',
+    '🔧',
+    '💊',
+    '🎵',
+    '📱',
+    '🧴',
+    '🥩',
+    '🥦',
+    '🧀',
+    '🍺',
+    '☕',
+    '⚽',
+    '🎂',
   ];
 
   static const _materialIcons = <String, IconData>{
@@ -78,8 +99,7 @@ class _IconPickerWidgetState extends State<IconPickerWidget>
                 const Text('Icon  '),
                 // Preview current icon
                 if (widget.iconType == 'emoji')
-                  Text(widget.iconValue,
-                      style: const TextStyle(fontSize: 24))
+                  Text(widget.iconValue, style: const TextStyle(fontSize: 24))
                 else
                   Icon(
                     _materialIcons[widget.iconValue] ?? Icons.receipt,
@@ -103,8 +123,7 @@ class _IconPickerWidgetState extends State<IconPickerWidget>
                 // Emoji grid
                 GridView.builder(
                   padding: const EdgeInsets.all(8),
-                  gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 8,
                     childAspectRatio: 1,
                   ),
@@ -112,8 +131,7 @@ class _IconPickerWidgetState extends State<IconPickerWidget>
                   itemBuilder: (ctx, i) {
                     final emoji = _emojis[i];
                     final isSelected =
-                        widget.iconType == 'emoji' &&
-                        widget.iconValue == emoji;
+                        widget.iconType == 'emoji' && widget.iconValue == emoji;
                     return GestureDetector(
                       onTap: () => widget.onChanged('emoji', emoji),
                       child: Container(
@@ -125,8 +143,10 @@ class _IconPickerWidgetState extends State<IconPickerWidget>
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Center(
-                          child: Text(emoji,
-                              style: const TextStyle(fontSize: 20)),
+                          child: Text(
+                            emoji,
+                            style: const TextStyle(fontSize: 20),
+                          ),
                         ),
                       ),
                     );
@@ -135,20 +155,17 @@ class _IconPickerWidgetState extends State<IconPickerWidget>
                 // Material icons grid
                 GridView.builder(
                   padding: const EdgeInsets.all(8),
-                  gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 8,
                     childAspectRatio: 1,
                   ),
                   itemCount: _materialIcons.length,
                   itemBuilder: (ctx, i) {
                     final entry = _materialIcons.entries.elementAt(i);
-                    final isSelected =
-                        widget.iconType == 'material' &&
+                    final isSelected = widget.iconType == 'material' &&
                         widget.iconValue == entry.key;
                     return GestureDetector(
-                      onTap: () =>
-                          widget.onChanged('material', entry.key),
+                      onTap: () => widget.onChanged('material', entry.key),
                       child: Container(
                         margin: const EdgeInsets.all(2),
                         decoration: BoxDecoration(
@@ -157,9 +174,7 @@ class _IconPickerWidgetState extends State<IconPickerWidget>
                               : Colors.transparent,
                           borderRadius: BorderRadius.circular(6),
                         ),
-                        child: Center(
-                          child: Icon(entry.value, size: 20),
-                        ),
+                        child: Center(child: Icon(entry.value, size: 20)),
                       ),
                     );
                   },

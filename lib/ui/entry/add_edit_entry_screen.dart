@@ -22,8 +22,7 @@ class AddEditEntryScreen extends ConsumerStatefulWidget {
   const AddEditEntryScreen({super.key, this.entryId, this.groupId});
 
   @override
-  ConsumerState<AddEditEntryScreen> createState() =>
-      _AddEditEntryScreenState();
+  ConsumerState<AddEditEntryScreen> createState() => _AddEditEntryScreenState();
 }
 
 class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
@@ -56,9 +55,8 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
 
   Future<void> _loadGroupDate() async {
     try {
-      final group = await ref
-          .read(groupRepositoryProvider)
-          .getGroupById(widget.groupId!);
+      final group =
+          await ref.read(groupRepositoryProvider).getGroupById(widget.groupId!);
       if (group != null && mounted) {
         setState(() {
           _occurredAt = DateTime.tryParse(group.createdAt) ?? DateTime.now();
@@ -73,9 +71,8 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
   }
 
   Future<void> _loadEntry() async {
-    final entry = await ref
-        .read(entryRepositoryProvider)
-        .getEntryById(widget.entryId!);
+    final entry =
+        await ref.read(entryRepositoryProvider).getEntryById(widget.entryId!);
     if (entry != null && mounted) {
       setState(() {
         _originalEntry = entry;
@@ -106,9 +103,8 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
 
     try {
       final amount = double.tryParse(_amountCtrl.text.trim()) ?? 0;
-      final currencies = await ref
-          .read(currencyRepositoryProvider)
-          .getAllCurrencies();
+      final currencies =
+          await ref.read(currencyRepositoryProvider).getAllCurrencies();
       final currency = currencies.firstWhere(
         (c) => c.code == _currencyCode,
         orElse: () => const CurrencyModel(
@@ -118,9 +114,8 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
           rateToBase: 1.0,
         ),
       );
-      final amountBase = currency.rateToBase > 0
-          ? amount / currency.rateToBase
-          : amount;
+      final amountBase =
+          currency.rateToBase > 0 ? amount / currency.rateToBase : amount;
       final dateStr = DateFormat('yyyy-MM-dd').format(_occurredAt);
 
       final entryRepo = ref.read(entryRepositoryProvider);
@@ -156,9 +151,9 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
       if (mounted) context.pop();
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error: $e')));
       }
     } finally {
       if (mounted) setState(() => _isLoading = false);
@@ -232,9 +227,7 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
     final theme = Theme.of(context);
 
     if (_isLoadingEntry) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     return Scaffold(
@@ -263,12 +256,18 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
                 ButtonSegment(
                   value: 'income',
                   label: Text(AppLocalizations.of(context)!.income),
-                  icon: const Icon(Icons.arrow_upward, color: Color(0xFF4CAF50)),
+                  icon: const Icon(
+                    Icons.arrow_upward,
+                    color: Color(0xFF4CAF50),
+                  ),
                 ),
                 ButtonSegment(
                   value: 'expense',
                   label: Text(AppLocalizations.of(context)!.expense),
-                  icon: const Icon(Icons.arrow_downward, color: Color(0xFFF44336)),
+                  icon: const Icon(
+                    Icons.arrow_downward,
+                    color: Color(0xFFF44336),
+                  ),
                 ),
               ],
               selected: {_type},
@@ -283,10 +282,9 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
                 labelText: AppLocalizations.of(context)!.title,
                 hintText: AppLocalizations.of(context)!.titleHint,
               ),
-              validator: (v) =>
-                  v == null || v.trim().isEmpty
-                      ? AppLocalizations.of(context)!.titleRequired
-                      : null,
+              validator: (v) => v == null || v.trim().isEmpty
+                  ? AppLocalizations.of(context)!.titleRequired
+                  : null,
             ),
             const SizedBox(height: 12),
 
@@ -310,8 +308,9 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
                 labelText: AppLocalizations.of(context)!.amount,
                 hintText: AppLocalizations.of(context)!.amountHint,
               ),
-              keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+              ),
               validator: (v) {
                 if (v == null || v.trim().isEmpty)
                   return AppLocalizations.of(context)!.amountRequired;
@@ -351,13 +350,17 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
                     ),
                 ],
               ),
-              onTap: (_originalEntry?.groupId != null || widget.groupId != null) ? null : _pickDate,
-              enabled: _originalEntry?.groupId == null && widget.groupId == null,
+              onTap: (_originalEntry?.groupId != null || widget.groupId != null)
+                  ? null
+                  : _pickDate,
+              enabled:
+                  _originalEntry?.groupId == null && widget.groupId == null,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
-              tileColor: theme.colorScheme.surfaceContainerHighest
-                  .withOpacity(0.5),
+              tileColor: theme.colorScheme.surfaceContainerHighest.withOpacity(
+                0.5,
+              ),
             ),
             const SizedBox(height: 24),
 
@@ -370,9 +373,11 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
                       width: 20,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : Text(_isEditMode
-                      ? AppLocalizations.of(context)!.saveChanges
-                      : AppLocalizations.of(context)!.addEntry),
+                  : Text(
+                      _isEditMode
+                          ? AppLocalizations.of(context)!.saveChanges
+                          : AppLocalizations.of(context)!.addEntry,
+                    ),
             ),
 
             // Delete button (edit mode only)

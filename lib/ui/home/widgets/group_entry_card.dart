@@ -11,11 +11,7 @@ class GroupEntryCard extends StatefulWidget {
   final EntryGroupModel group;
   final List<EntryModel> entries;
 
-  const GroupEntryCard({
-    super.key,
-    required this.group,
-    required this.entries,
-  });
+  const GroupEntryCard({super.key, required this.group, required this.entries});
 
   @override
   State<GroupEntryCard> createState() => _GroupEntryCardState();
@@ -93,7 +89,9 @@ class _GroupEntryCardState extends State<GroupEntryCard> {
                   Expanded(child: StandaloneEntryRow(entry: e)),
                   IconButton(
                     icon: const Icon(Icons.edit_outlined, size: 18),
-                    onPressed: () => context.push('/entry/${e.id}/edit?groupId=${widget.group.id}'),
+                    onPressed: () => context.push(
+                      '/entry/${e.id}/edit?groupId=${widget.group.id}',
+                    ),
                     tooltip: 'Edit',
                   ),
                 ],
@@ -101,8 +99,7 @@ class _GroupEntryCardState extends State<GroupEntryCard> {
             ),
             // Tap group header to view group detail
             TextButton(
-              onPressed: () =>
-                  context.push('/group/${widget.group.id}'),
+              onPressed: () => context.push('/group/${widget.group.id}'),
               child: Text(AppLocalizations.of(context)!.viewGroupDetail),
             ),
           ],

@@ -60,9 +60,7 @@ class EntryRepository {
   }
 
   Future<void> updateEntry(EntryModel entry) async {
-    final updated = entry.copyWith(
-      updatedAt: DateTime.now().toIso8601String(),
-    );
+    final updated = entry.copyWith(updatedAt: DateTime.now().toIso8601String());
     await _db.entriesDao.updateEntry(updated);
   }
 

@@ -3,6 +3,5 @@
 part of 'currencies_dao.dart';
 
 mixin _$CurrenciesDaoMixin on DatabaseAccessor<AppDatabase> {
-  $CurrenciesTableTable get currenciesTable =>
-      attachedDatabase.currenciesTable;
+  $CurrenciesTableTable get currenciesTable => attachedDatabase.currenciesTable;
 }

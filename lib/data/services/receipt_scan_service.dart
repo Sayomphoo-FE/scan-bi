@@ -9,12 +9,7 @@ class ParsedReceipt {
   final String? currencyCode;
   final String? date; // ISO 8601 "YYYY-MM-DD"
 
-  const ParsedReceipt({
-    this.title,
-    this.amount,
-    this.currencyCode,
-    this.date,
-  });
+  const ParsedReceipt({this.title, this.amount, this.currencyCode, this.date});
 
   bool get hasAnyData =>
       title != null || amount != null || currencyCode != null || date != null;
@@ -62,7 +57,11 @@ class ReceiptScanService {
   }
 
   ParsedReceipt _parseText(String text) {
-    final lines = text.split('\n').map((l) => l.trim()).where((l) => l.isNotEmpty).toList();
+    final lines = text
+        .split('\n')
+        .map((l) => l.trim())
+        .where((l) => l.isNotEmpty)
+        .toList();
 
     String? title;
     double? amount;
@@ -76,7 +75,10 @@ class ReceiptScanService {
 
     // Extract amount — look for "Total", "ยอดรวม", "รวม" followed by number
     final amountPatterns = [
-      RegExp(r'(?:total|ยอดรวม|รวมทั้งสิ้น|รวม|ยอดชำระ|grand total)[^\d]*([0-9,]+(?:\.[0-9]{1,2})?)', caseSensitive: false),
+      RegExp(
+        r'(?:total|ยอดรวม|รวมทั้งสิ้น|รวม|ยอดชำระ|grand total)[^\d]*([0-9,]+(?:\.[0-9]{1,2})?)',
+        caseSensitive: false,
+      ),
       RegExp(r'([0-9,]+\.[0-9]{2})\s*$', multiLine: true),
     ];
     for (final pattern in amountPatterns) {

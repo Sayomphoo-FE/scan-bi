@@ -30,8 +30,8 @@ class YearMonth {
   }
 
   DateTime get startDate => DateTime(year, month, 1);
-  DateTime get endDate => DateTime(year, month + 1, 1)
-      .subtract(const Duration(days: 1));
+  DateTime get endDate =>
+      DateTime(year, month + 1, 1).subtract(const Duration(days: 1));
 
   /// ISO date string for the first day of month, e.g. "2025-05-01"
   String get startDateString =>

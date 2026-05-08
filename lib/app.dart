@@ -15,10 +15,7 @@ import 'ui/settings/backup_restore_screen.dart';
 final _router = GoRouter(
   initialLocation: '/',
   routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) => const HomeScreen(),
-    ),
+    GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
     GoRoute(
       path: '/entry/add',
       builder: (context, state) {

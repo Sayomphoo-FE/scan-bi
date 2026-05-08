@@ -66,7 +66,7 @@ class MonthSummaryCard extends ConsumerWidget {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  
+
                   // Line 2: Income & Expense with percentages
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -91,7 +91,7 @@ class MonthSummaryCard extends ConsumerWidget {
                     ],
                   ),
                   const SizedBox(height: 12),
-                  
+
                   // Line 3: Progress bar
                   ProgressBarWidget(
                     greenFlex: summary.greenFlex,

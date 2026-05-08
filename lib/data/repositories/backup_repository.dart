@@ -59,11 +59,14 @@ class BackupRepository {
       }
 
       // Update metadata
-      batch.set(userRef, {
-        'lastBackupAt': DateTime.now().toIso8601String(),
-        'entriesCount': entries.length,
-        'groupsCount': groups.length,
-      }, SetOptions(merge: true));
+      batch.set(
+          userRef,
+          {
+            'lastBackupAt': DateTime.now().toIso8601String(),
+            'entriesCount': entries.length,
+            'groupsCount': groups.length,
+          },
+          SetOptions(merge: true));
 
       await batch.commit();
     } catch (e) {
@@ -77,8 +80,7 @@ class BackupRepository {
     if (uid == null) return null;
 
     try {
-      final doc =
-          await _firestore.collection('users').doc(uid).get();
+      final doc = await _firestore.collection('users').doc(uid).get();
       final data = doc.data();
       if (data == null) return null;
       final ts = data['lastBackupAt'] as String?;
@@ -103,7 +105,8 @@ class BackupRepository {
           .get();
       for (final doc in groupsSnap.docs) {
         final group = EntryGroupModel.fromMap(
-            Map<String, dynamic>.from(doc.data()));
+          Map<String, dynamic>.from(doc.data()),
+        );
         await _db.groupsDao.insertGroup(group).catchError((_) async {
           await _db.groupsDao.updateGroup(group);
         });
@@ -114,8 +117,7 @@ class BackupRepository {
           .collection(AppConstants.firestoreEntriesCollection)
           .get();
       for (final doc in entriesSnap.docs) {
-        final entry =
-            EntryModel.fromMap(Map<String, dynamic>.from(doc.data()));
+        final entry = EntryModel.fromMap(Map<String, dynamic>.from(doc.data()));
         await _db.entriesDao.insertEntry(entry).catchError((_) async {
           await _db.entriesDao.updateEntry(entry);
         });
@@ -126,8 +128,9 @@ class BackupRepository {
           .collection(AppConstants.firestoreCurrenciesCollection)
           .get();
       for (final doc in currenciesSnap.docs) {
-        final currency =
-            CurrencyModel.fromMap(Map<String, dynamic>.from(doc.data()));
+        final currency = CurrencyModel.fromMap(
+          Map<String, dynamic>.from(doc.data()),
+        );
         await _db.currenciesDao.upsertCurrency(currency);
       }
     } catch (e) {

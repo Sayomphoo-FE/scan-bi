@@ -22,20 +22,21 @@ class EntriesTableData extends DataClass
   final String? receiptImagePath;
   final String createdAt;
   final String updatedAt;
-  const EntriesTableData(
-      {required this.id,
-      required this.type,
-      required this.title,
-      required this.iconType,
-      required this.iconValue,
-      required this.amount,
-      required this.currencyCode,
-      required this.amountBase,
-      required this.occurredAt,
-      this.groupId,
-      this.receiptImagePath,
-      required this.createdAt,
-      required this.updatedAt});
+  const EntriesTableData({
+    required this.id,
+    required this.type,
+    required this.title,
+    required this.iconType,
+    required this.iconValue,
+    required this.amount,
+    required this.currencyCode,
+    required this.amountBase,
+    required this.occurredAt,
+    this.groupId,
+    this.receiptImagePath,
+    required this.createdAt,
+    required this.updatedAt,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -70,8 +71,9 @@ class EntriesTableData extends DataClass
       currencyCode: Value(currencyCode),
       amountBase: Value(amountBase),
       occurredAt: Value(occurredAt),
-      groupId:
-          groupId == null && nullToAbsent ? const Value.absent() : Value(groupId),
+      groupId: groupId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(groupId),
       receiptImagePath: receiptImagePath == null && nullToAbsent
           ? const Value.absent()
           : Value(receiptImagePath),
@@ -80,8 +82,10 @@ class EntriesTableData extends DataClass
     );
   }
 
-  factory EntriesTableData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory EntriesTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return EntriesTableData(
       id: serializer.fromJson<String>(json['id']),
@@ -94,8 +98,7 @@ class EntriesTableData extends DataClass
       amountBase: serializer.fromJson<double>(json['amountBase']),
       occurredAt: serializer.fromJson<String>(json['occurredAt']),
       groupId: serializer.fromJson<String?>(json['groupId']),
-      receiptImagePath:
-          serializer.fromJson<String?>(json['receiptImagePath']),
+      receiptImagePath: serializer.fromJson<String?>(json['receiptImagePath']),
       createdAt: serializer.fromJson<String>(json['createdAt']),
       updatedAt: serializer.fromJson<String>(json['updatedAt']),
     );
@@ -120,20 +123,21 @@ class EntriesTableData extends DataClass
     };
   }
 
-  EntriesTableData copyWith(
-          {String? id,
-          String? type,
-          String? title,
-          String? iconType,
-          String? iconValue,
-          double? amount,
-          String? currencyCode,
-          double? amountBase,
-          String? occurredAt,
-          Value<String?> groupId = const Value.absent(),
-          Value<String?> receiptImagePath = const Value.absent(),
-          String? createdAt,
-          String? updatedAt}) =>
+  EntriesTableData copyWith({
+    String? id,
+    String? type,
+    String? title,
+    String? iconType,
+    String? iconValue,
+    double? amount,
+    String? currencyCode,
+    double? amountBase,
+    String? occurredAt,
+    Value<String?> groupId = const Value.absent(),
+    Value<String?> receiptImagePath = const Value.absent(),
+    String? createdAt,
+    String? updatedAt,
+  }) =>
       EntriesTableData(
         id: id ?? this.id,
         type: type ?? this.type,
@@ -172,9 +176,21 @@ class EntriesTableData extends DataClass
   }
 
   @override
-  int get hashCode => Object.hash(id, type, title, iconType, iconValue, amount,
-      currencyCode, amountBase, occurredAt, groupId, receiptImagePath,
-      createdAt, updatedAt);
+  int get hashCode => Object.hash(
+        id,
+        type,
+        title,
+        iconType,
+        iconValue,
+        amount,
+        currencyCode,
+        amountBase,
+        occurredAt,
+        groupId,
+        receiptImagePath,
+        createdAt,
+        updatedAt,
+      );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -285,21 +301,22 @@ class EntriesTableCompanion extends UpdateCompanion<EntriesTableData> {
     });
   }
 
-  EntriesTableCompanion copyWith(
-      {Value<String>? id,
-      Value<String>? type,
-      Value<String>? title,
-      Value<String>? iconType,
-      Value<String>? iconValue,
-      Value<double>? amount,
-      Value<String>? currencyCode,
-      Value<double>? amountBase,
-      Value<String>? occurredAt,
-      Value<String?>? groupId,
-      Value<String?>? receiptImagePath,
-      Value<String>? createdAt,
-      Value<String>? updatedAt,
-      Value<int>? rowid}) {
+  EntriesTableCompanion copyWith({
+    Value<String>? id,
+    Value<String>? type,
+    Value<String>? title,
+    Value<String>? iconType,
+    Value<String>? iconValue,
+    Value<double>? amount,
+    Value<String>? currencyCode,
+    Value<double>? amountBase,
+    Value<String>? occurredAt,
+    Value<String?>? groupId,
+    Value<String?>? receiptImagePath,
+    Value<String>? createdAt,
+    Value<String>? updatedAt,
+    Value<int>? rowid,
+  }) {
     return EntriesTableCompanion(
       id: id ?? this.id,
       type: type ?? this.type,
@@ -397,80 +414,139 @@ class $EntriesTableTable extends EntriesTable
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
-      'id', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _typeMeta = const VerificationMeta('type');
   @override
   late final GeneratedColumn<String> type = GeneratedColumn<String>(
-      'type', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _titleMeta = const VerificationMeta('title');
   @override
   late final GeneratedColumn<String> title = GeneratedColumn<String>(
-      'title', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _iconTypeMeta =
-      const VerificationMeta('iconType');
+    'title',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _iconTypeMeta = const VerificationMeta(
+    'iconType',
+  );
   @override
   late final GeneratedColumn<String> iconType = GeneratedColumn<String>(
-      'icon_type', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _iconValueMeta =
-      const VerificationMeta('iconValue');
+    'icon_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _iconValueMeta = const VerificationMeta(
+    'iconValue',
+  );
   @override
   late final GeneratedColumn<String> iconValue = GeneratedColumn<String>(
-      'icon_value', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _amountMeta =
-      const VerificationMeta('amount');
+    'icon_value',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _amountMeta = const VerificationMeta('amount');
   @override
   late final GeneratedColumn<double> amount = GeneratedColumn<double>(
-      'amount', aliasedName, false,
-      type: DriftSqlType.double, requiredDuringInsert: true);
-  static const VerificationMeta _currencyCodeMeta =
-      const VerificationMeta('currencyCode');
+    'amount',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _currencyCodeMeta = const VerificationMeta(
+    'currencyCode',
+  );
   @override
   late final GeneratedColumn<String> currencyCode = GeneratedColumn<String>(
-      'currency_code', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _amountBaseMeta =
-      const VerificationMeta('amountBase');
+    'currency_code',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _amountBaseMeta = const VerificationMeta(
+    'amountBase',
+  );
   @override
   late final GeneratedColumn<double> amountBase = GeneratedColumn<double>(
-      'amount_base', aliasedName, false,
-      type: DriftSqlType.double, requiredDuringInsert: true);
-  static const VerificationMeta _occurredAtMeta =
-      const VerificationMeta('occurredAt');
+    'amount_base',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _occurredAtMeta = const VerificationMeta(
+    'occurredAt',
+  );
   @override
   late final GeneratedColumn<String> occurredAt = GeneratedColumn<String>(
-      'occurred_at', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _groupIdMeta =
-      const VerificationMeta('groupId');
+    'occurred_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _groupIdMeta = const VerificationMeta(
+    'groupId',
+  );
   @override
   late final GeneratedColumn<String> groupId = GeneratedColumn<String>(
-      'group_id', aliasedName, true,
-      type: DriftSqlType.string,
-      requiredDuringInsert: false,
-      $customConstraints: 'REFERENCES entry_groups(id)');
-  static const VerificationMeta _receiptImagePathMeta =
-      const VerificationMeta('receiptImagePath');
+    'group_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    $customConstraints: 'REFERENCES entry_groups(id)',
+  );
+  static const VerificationMeta _receiptImagePathMeta = const VerificationMeta(
+    'receiptImagePath',
+  );
   @override
-  late final GeneratedColumn<String> receiptImagePath =
-      GeneratedColumn<String>('receipt_image_path', aliasedName, true,
-          type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _createdAtMeta =
-      const VerificationMeta('createdAt');
+  late final GeneratedColumn<String> receiptImagePath = GeneratedColumn<String>(
+    'receipt_image_path',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
   @override
   late final GeneratedColumn<String> createdAt = GeneratedColumn<String>(
-      'created_at', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _updatedAtMeta =
-      const VerificationMeta('updatedAt');
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
   @override
   late final GeneratedColumn<String> updatedAt = GeneratedColumn<String>(
-      'updated_at', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -485,7 +561,7 @@ class $EntriesTableTable extends EntriesTable
         groupId,
         receiptImagePath,
         createdAt,
-        updatedAt
+        updatedAt,
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -493,8 +569,10 @@ class $EntriesTableTable extends EntriesTable
   String get actualTableName => $name;
   static const String $name = 'entries';
   @override
-  VerificationContext validateIntegrity(Insertable<EntriesTableData> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<EntriesTableData> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -504,73 +582,99 @@ class $EntriesTableTable extends EntriesTable
     }
     if (data.containsKey('type')) {
       context.handle(
-          _typeMeta, type.isAcceptableOrUnknown(data['type']!, _typeMeta));
+        _typeMeta,
+        type.isAcceptableOrUnknown(data['type']!, _typeMeta),
+      );
     } else if (isInserting) {
       context.missing(_typeMeta);
     }
     if (data.containsKey('title')) {
       context.handle(
-          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
     } else if (isInserting) {
       context.missing(_titleMeta);
     }
     if (data.containsKey('icon_type')) {
-      context.handle(_iconTypeMeta,
-          iconType.isAcceptableOrUnknown(data['icon_type']!, _iconTypeMeta));
+      context.handle(
+        _iconTypeMeta,
+        iconType.isAcceptableOrUnknown(data['icon_type']!, _iconTypeMeta),
+      );
     } else if (isInserting) {
       context.missing(_iconTypeMeta);
     }
     if (data.containsKey('icon_value')) {
-      context.handle(_iconValueMeta,
-          iconValue.isAcceptableOrUnknown(data['icon_value']!, _iconValueMeta));
+      context.handle(
+        _iconValueMeta,
+        iconValue.isAcceptableOrUnknown(data['icon_value']!, _iconValueMeta),
+      );
     } else if (isInserting) {
       context.missing(_iconValueMeta);
     }
     if (data.containsKey('amount')) {
-      context.handle(_amountMeta,
-          amount.isAcceptableOrUnknown(data['amount']!, _amountMeta));
+      context.handle(
+        _amountMeta,
+        amount.isAcceptableOrUnknown(data['amount']!, _amountMeta),
+      );
     } else if (isInserting) {
       context.missing(_amountMeta);
     }
     if (data.containsKey('currency_code')) {
       context.handle(
+        _currencyCodeMeta,
+        currencyCode.isAcceptableOrUnknown(
+          data['currency_code']!,
           _currencyCodeMeta,
-          currencyCode.isAcceptableOrUnknown(
-              data['currency_code']!, _currencyCodeMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_currencyCodeMeta);
     }
     if (data.containsKey('amount_base')) {
-      context.handle(_amountBaseMeta,
-          amountBase.isAcceptableOrUnknown(data['amount_base']!, _amountBaseMeta));
+      context.handle(
+        _amountBaseMeta,
+        amountBase.isAcceptableOrUnknown(data['amount_base']!, _amountBaseMeta),
+      );
     } else if (isInserting) {
       context.missing(_amountBaseMeta);
     }
     if (data.containsKey('occurred_at')) {
-      context.handle(_occurredAtMeta,
-          occurredAt.isAcceptableOrUnknown(data['occurred_at']!, _occurredAtMeta));
+      context.handle(
+        _occurredAtMeta,
+        occurredAt.isAcceptableOrUnknown(data['occurred_at']!, _occurredAtMeta),
+      );
     } else if (isInserting) {
       context.missing(_occurredAtMeta);
     }
     if (data.containsKey('group_id')) {
-      context.handle(_groupIdMeta,
-          groupId.isAcceptableOrUnknown(data['group_id']!, _groupIdMeta));
+      context.handle(
+        _groupIdMeta,
+        groupId.isAcceptableOrUnknown(data['group_id']!, _groupIdMeta),
+      );
     }
     if (data.containsKey('receipt_image_path')) {
       context.handle(
+        _receiptImagePathMeta,
+        receiptImagePath.isAcceptableOrUnknown(
+          data['receipt_image_path']!,
           _receiptImagePathMeta,
-          receiptImagePath.isAcceptableOrUnknown(
-              data['receipt_image_path']!, _receiptImagePathMeta));
+        ),
+      );
     }
     if (data.containsKey('created_at')) {
-      context.handle(_createdAtMeta,
-          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
     } else if (isInserting) {
       context.missing(_createdAtMeta);
     }
     if (data.containsKey('updated_at')) {
-      context.handle(_updatedAtMeta,
-          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
     } else if (isInserting) {
       context.missing(_updatedAtMeta);
     }
@@ -583,32 +687,58 @@ class $EntriesTableTable extends EntriesTable
   EntriesTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return EntriesTableData(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
-      type: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}type'])!,
-      title: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
-      iconType: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}icon_type'])!,
-      iconValue: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}icon_value'])!,
-      amount: attachedDatabase.typeMapping
-          .read(DriftSqlType.double, data['${effectivePrefix}amount'])!,
-      currencyCode: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}currency_code'])!,
-      amountBase: attachedDatabase.typeMapping
-          .read(DriftSqlType.double, data['${effectivePrefix}amount_base'])!,
-      occurredAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}occurred_at'])!,
-      groupId: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}group_id']),
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      type: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}type'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
+      iconType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}icon_type'],
+      )!,
+      iconValue: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}icon_value'],
+      )!,
+      amount: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}amount'],
+      )!,
+      currencyCode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}currency_code'],
+      )!,
+      amountBase: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}amount_base'],
+      )!,
+      occurredAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}occurred_at'],
+      )!,
+      groupId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}group_id'],
+      ),
       receiptImagePath: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}receipt_image_path']),
-      createdAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}created_at'])!,
-      updatedAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}updated_at'])!,
+        DriftSqlType.string,
+        data['${effectivePrefix}receipt_image_path'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}updated_at'],
+      )!,
     );
   }
 
@@ -625,12 +755,13 @@ class EntryGroupsTableData extends DataClass
   final String iconType;
   final String iconValue;
   final String createdAt;
-  const EntryGroupsTableData(
-      {required this.id,
-      required this.name,
-      required this.iconType,
-      required this.iconValue,
-      required this.createdAt});
+  const EntryGroupsTableData({
+    required this.id,
+    required this.name,
+    required this.iconType,
+    required this.iconValue,
+    required this.createdAt,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -652,8 +783,10 @@ class EntryGroupsTableData extends DataClass
     );
   }
 
-  factory EntryGroupsTableData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory EntryGroupsTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return EntryGroupsTableData(
       id: serializer.fromJson<String>(json['id']),
@@ -675,12 +808,13 @@ class EntryGroupsTableData extends DataClass
     };
   }
 
-  EntryGroupsTableData copyWith(
-          {String? id,
-          String? name,
-          String? iconType,
-          String? iconValue,
-          String? createdAt}) =>
+  EntryGroupsTableData copyWith({
+    String? id,
+    String? name,
+    String? iconType,
+    String? iconValue,
+    String? createdAt,
+  }) =>
       EntryGroupsTableData(
         id: id ?? this.id,
         name: name ?? this.name,
@@ -701,8 +835,7 @@ class EntryGroupsTableData extends DataClass
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, name, iconType, iconValue, createdAt);
+  int get hashCode => Object.hash(id, name, iconType, iconValue, createdAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -714,8 +847,7 @@ class EntryGroupsTableData extends DataClass
           other.createdAt == this.createdAt);
 }
 
-class EntryGroupsTableCompanion
-    extends UpdateCompanion<EntryGroupsTableData> {
+class EntryGroupsTableCompanion extends UpdateCompanion<EntryGroupsTableData> {
   final Value<String> id;
   final Value<String> name;
   final Value<String> iconType;
@@ -760,13 +892,14 @@ class EntryGroupsTableCompanion
     });
   }
 
-  EntryGroupsTableCompanion copyWith(
-      {Value<String>? id,
-      Value<String>? name,
-      Value<String>? iconType,
-      Value<String>? iconValue,
-      Value<String>? createdAt,
-      Value<int>? rowid}) {
+  EntryGroupsTableCompanion copyWith({
+    Value<String>? id,
+    Value<String>? name,
+    Value<String>? iconType,
+    Value<String>? iconValue,
+    Value<String>? createdAt,
+    Value<int>? rowid,
+  }) {
     return EntryGroupsTableCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -824,34 +957,62 @@ class $EntryGroupsTableTable extends EntryGroupsTable
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
-      'id', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
-      'name', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _iconTypeMeta =
-      const VerificationMeta('iconType');
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _iconTypeMeta = const VerificationMeta(
+    'iconType',
+  );
   @override
   late final GeneratedColumn<String> iconType = GeneratedColumn<String>(
-      'icon_type', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _iconValueMeta =
-      const VerificationMeta('iconValue');
+    'icon_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _iconValueMeta = const VerificationMeta(
+    'iconValue',
+  );
   @override
   late final GeneratedColumn<String> iconValue = GeneratedColumn<String>(
-      'icon_value', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _createdAtMeta =
-      const VerificationMeta('createdAt');
+    'icon_value',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
   @override
   late final GeneratedColumn<String> createdAt = GeneratedColumn<String>(
-      'created_at', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, name, iconType, iconValue, createdAt];
+  List<GeneratedColumn> get $columns => [
+        id,
+        name,
+        iconType,
+        iconValue,
+        createdAt,
+      ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -859,8 +1020,9 @@ class $EntryGroupsTableTable extends EntryGroupsTable
   static const String $name = 'entry_groups';
   @override
   VerificationContext validateIntegrity(
-      Insertable<EntryGroupsTableData> instance,
-      {bool isInserting = false}) {
+    Insertable<EntryGroupsTableData> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -870,25 +1032,33 @@ class $EntryGroupsTableTable extends EntryGroupsTable
     }
     if (data.containsKey('name')) {
       context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
     if (data.containsKey('icon_type')) {
-      context.handle(_iconTypeMeta,
-          iconType.isAcceptableOrUnknown(data['icon_type']!, _iconTypeMeta));
+      context.handle(
+        _iconTypeMeta,
+        iconType.isAcceptableOrUnknown(data['icon_type']!, _iconTypeMeta),
+      );
     } else if (isInserting) {
       context.missing(_iconTypeMeta);
     }
     if (data.containsKey('icon_value')) {
-      context.handle(_iconValueMeta,
-          iconValue.isAcceptableOrUnknown(data['icon_value']!, _iconValueMeta));
+      context.handle(
+        _iconValueMeta,
+        iconValue.isAcceptableOrUnknown(data['icon_value']!, _iconValueMeta),
+      );
     } else if (isInserting) {
       context.missing(_iconValueMeta);
     }
     if (data.containsKey('created_at')) {
-      context.handle(_createdAtMeta,
-          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
     } else if (isInserting) {
       context.missing(_createdAtMeta);
     }
@@ -898,20 +1068,29 @@ class $EntryGroupsTableTable extends EntryGroupsTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  EntryGroupsTableData map(Map<String, dynamic> data,
-      {String? tablePrefix}) {
+  EntryGroupsTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return EntryGroupsTableData(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
-      name: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
-      iconType: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}icon_type'])!,
-      iconValue: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}icon_value'])!,
-      createdAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}created_at'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      iconType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}icon_type'],
+      )!,
+      iconValue: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}icon_value'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}created_at'],
+      )!,
     );
   }
 
@@ -927,11 +1106,12 @@ class CurrenciesTableData extends DataClass
   final String name;
   final String symbol;
   final double rateToBase;
-  const CurrenciesTableData(
-      {required this.code,
-      required this.name,
-      required this.symbol,
-      required this.rateToBase});
+  const CurrenciesTableData({
+    required this.code,
+    required this.name,
+    required this.symbol,
+    required this.rateToBase,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -951,8 +1131,10 @@ class CurrenciesTableData extends DataClass
     );
   }
 
-  factory CurrenciesTableData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory CurrenciesTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return CurrenciesTableData(
       code: serializer.fromJson<String>(json['code']),
@@ -972,11 +1154,12 @@ class CurrenciesTableData extends DataClass
     };
   }
 
-  CurrenciesTableData copyWith(
-          {String? code,
-          String? name,
-          String? symbol,
-          double? rateToBase}) =>
+  CurrenciesTableData copyWith({
+    String? code,
+    String? name,
+    String? symbol,
+    double? rateToBase,
+  }) =>
       CurrenciesTableData(
         code: code ?? this.code,
         name: name ?? this.name,
@@ -1045,12 +1228,13 @@ class CurrenciesTableCompanion extends UpdateCompanion<CurrenciesTableData> {
     });
   }
 
-  CurrenciesTableCompanion copyWith(
-      {Value<String>? code,
-      Value<String>? name,
-      Value<String>? symbol,
-      Value<double>? rateToBase,
-      Value<int>? rowid}) {
+  CurrenciesTableCompanion copyWith({
+    Value<String>? code,
+    Value<String>? name,
+    Value<String>? symbol,
+    Value<double>? rateToBase,
+    Value<int>? rowid,
+  }) {
     return CurrenciesTableCompanion(
       code: code ?? this.code,
       name: name ?? this.name,
@@ -1103,25 +1287,41 @@ class $CurrenciesTableTable extends CurrenciesTable
   static const VerificationMeta _codeMeta = const VerificationMeta('code');
   @override
   late final GeneratedColumn<String> code = GeneratedColumn<String>(
-      'code', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'code',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
-      'name', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _symbolMeta =
-      const VerificationMeta('symbol');
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _symbolMeta = const VerificationMeta('symbol');
   @override
   late final GeneratedColumn<String> symbol = GeneratedColumn<String>(
-      'symbol', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _rateToBaseMeta =
-      const VerificationMeta('rateToBase');
+    'symbol',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _rateToBaseMeta = const VerificationMeta(
+    'rateToBase',
+  );
   @override
   late final GeneratedColumn<double> rateToBase = GeneratedColumn<double>(
-      'rate_to_base', aliasedName, false,
-      type: DriftSqlType.double, requiredDuringInsert: true);
+    'rate_to_base',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
   @override
   List<GeneratedColumn> get $columns => [code, name, symbol, rateToBase];
   @override
@@ -1131,33 +1331,43 @@ class $CurrenciesTableTable extends CurrenciesTable
   static const String $name = 'currencies';
   @override
   VerificationContext validateIntegrity(
-      Insertable<CurrenciesTableData> instance,
-      {bool isInserting = false}) {
+    Insertable<CurrenciesTableData> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('code')) {
       context.handle(
-          _codeMeta, code.isAcceptableOrUnknown(data['code']!, _codeMeta));
+        _codeMeta,
+        code.isAcceptableOrUnknown(data['code']!, _codeMeta),
+      );
     } else if (isInserting) {
       context.missing(_codeMeta);
     }
     if (data.containsKey('name')) {
       context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
     if (data.containsKey('symbol')) {
-      context.handle(_symbolMeta,
-          symbol.isAcceptableOrUnknown(data['symbol']!, _symbolMeta));
+      context.handle(
+        _symbolMeta,
+        symbol.isAcceptableOrUnknown(data['symbol']!, _symbolMeta),
+      );
     } else if (isInserting) {
       context.missing(_symbolMeta);
     }
     if (data.containsKey('rate_to_base')) {
       context.handle(
+        _rateToBaseMeta,
+        rateToBase.isAcceptableOrUnknown(
+          data['rate_to_base']!,
           _rateToBaseMeta,
-          rateToBase.isAcceptableOrUnknown(
-              data['rate_to_base']!, _rateToBaseMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_rateToBaseMeta);
     }
@@ -1167,18 +1377,25 @@ class $CurrenciesTableTable extends CurrenciesTable
   @override
   Set<GeneratedColumn> get $primaryKey => {code};
   @override
-  CurrenciesTableData map(Map<String, dynamic> data,
-      {String? tablePrefix}) {
+  CurrenciesTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return CurrenciesTableData(
-      code: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}code'])!,
-      name: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
-      symbol: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}symbol'])!,
-      rateToBase: attachedDatabase.typeMapping
-          .read(DriftSqlType.double, data['${effectivePrefix}rate_to_base'])!,
+      code: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}code'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      symbol: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}symbol'],
+      )!,
+      rateToBase: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}rate_to_base'],
+      )!,
     );
   }
 
@@ -1191,18 +1408,22 @@ class $CurrenciesTableTable extends CurrenciesTable
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   late final $EntriesTableTable entriesTable = $EntriesTableTable(this);
-  late final $EntryGroupsTableTable entryGroupsTable =
-      $EntryGroupsTableTable(this);
-  late final $CurrenciesTableTable currenciesTable =
-      $CurrenciesTableTable(this);
+  late final $EntryGroupsTableTable entryGroupsTable = $EntryGroupsTableTable(
+    this,
+  );
+  late final $CurrenciesTableTable currenciesTable = $CurrenciesTableTable(
+    this,
+  );
   late final EntriesDao entriesDao = EntriesDao(this as AppDatabase);
   late final GroupsDao groupsDao = GroupsDao(this as AppDatabase);
-  late final CurrenciesDao currenciesDao =
-      CurrenciesDao(this as AppDatabase);
+  late final CurrenciesDao currenciesDao = CurrenciesDao(this as AppDatabase);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [entriesTable, entryGroupsTable, currenciesTable];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+        entriesTable,
+        entryGroupsTable,
+        currenciesTable,
+      ];
 }

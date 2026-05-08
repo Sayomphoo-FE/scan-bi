@@ -7,11 +7,7 @@ class DateGroupHeader extends StatelessWidget {
   final String date; // "YYYY-MM-DD"
   final double dayNet;
 
-  const DateGroupHeader({
-    super.key,
-    required this.date,
-    required this.dayNet,
-  });
+  const DateGroupHeader({super.key, required this.date, required this.dayNet});
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +23,8 @@ class DateGroupHeader extends StatelessWidget {
         ? DateFormat('EEE, dd MMM yyyy').format(parsedDate)
         : date;
 
-    final netColor = dayNet >= 0
-        ? const Color(0xFF4CAF50)
-        : const Color(0xFFF44336);
+    final netColor =
+        dayNet >= 0 ? const Color(0xFF4CAF50) : const Color(0xFFF44336);
     final netPrefix = dayNet >= 0 ? '+' : '';
 
     return Padding(

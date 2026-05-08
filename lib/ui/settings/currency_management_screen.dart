@@ -34,9 +34,7 @@ class _CurrencyManagementScreenState
           // rate_to_base = how many of base (THB) per 1 unit of this currency
           // 1 USD = usdToThb THB, 1 XYZ = (usdToThb / usdRate) THB
           final rateToBase = usdToThb / usdRate;
-          await repo.upsertCurrency(
-            currency.copyWith(rateToBase: rateToBase),
-          );
+          await repo.upsertCurrency(currency.copyWith(rateToBase: rateToBase));
         }
       }
 
@@ -47,9 +45,9 @@ class _CurrencyManagementScreenState
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to refresh rates: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Failed to refresh rates: $e')));
       }
     } finally {
       if (mounted) setState(() => _isRefreshing = false);
@@ -93,12 +91,15 @@ class _CurrencyManagementScreenState
                     final c = results[i];
                     return ListTile(
                       leading: CircleAvatar(
-                        child: Text(c.symbol,
-                            style: const TextStyle(fontSize: 12)),
+                        child: Text(
+                          c.symbol,
+                          style: const TextStyle(fontSize: 12),
+                        ),
                       ),
                       title: Text('${c.code} — ${c.name}'),
-                      subtitle:
-                          Text('Rate to THB: ${c.rateToBase.toStringAsFixed(4)}'),
+                      subtitle: Text(
+                        'Rate to THB: ${c.rateToBase.toStringAsFixed(4)}',
+                      ),
                       onTap: () async {
                         await ref
                             .read(currencyRepositoryProvider)
@@ -106,10 +107,7 @@ class _CurrencyManagementScreenState
                         if (ctx.mounted) Navigator.pop(ctx);
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content:
-                                  Text('Added ${c.code}'),
-                            ),
+                            SnackBar(content: Text('Added ${c.code}')),
                           );
                         }
                       },
@@ -165,12 +163,12 @@ class _CurrencyManagementScreenState
               final c = currencies[i];
               return ListTile(
                 leading: CircleAvatar(
-                  child: Text(c.symbol,
-                      style: const TextStyle(fontSize: 12)),
+                  child: Text(c.symbol, style: const TextStyle(fontSize: 12)),
                 ),
                 title: Text('${c.code} — ${c.name}'),
                 subtitle: Text(
-                    '1 ${c.code} = ${c.rateToBase.toStringAsFixed(4)} THB'),
+                  '1 ${c.code} = ${c.rateToBase.toStringAsFixed(4)} THB',
+                ),
                 trailing: IconButton(
                   icon: const Icon(Icons.delete_outline),
                   onPressed: () => _deleteCurrency(context, c),
@@ -186,7 +184,9 @@ class _CurrencyManagementScreenState
   }
 
   Future<void> _deleteCurrency(
-      BuildContext context, CurrencyModel currency) async {
+    BuildContext context,
+    CurrencyModel currency,
+  ) async {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -209,9 +209,7 @@ class _CurrencyManagementScreenState
     );
 
     if (confirmed == true) {
-      await ref
-          .read(currencyRepositoryProvider)
-          .deleteCurrency(currency.code);
+      await ref.read(currencyRepositoryProvider).deleteCurrency(currency.code);
     }
   }
 }

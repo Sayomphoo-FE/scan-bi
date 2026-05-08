@@ -7,8 +7,7 @@ import '../../models/entry_group.dart';
 part 'groups_dao.g.dart';
 
 @DriftAccessor(tables: [EntryGroupsTable])
-class GroupsDao extends DatabaseAccessor<AppDatabase>
-    with _$GroupsDaoMixin {
+class GroupsDao extends DatabaseAccessor<AppDatabase> with _$GroupsDaoMixin {
   GroupsDao(super.db);
 
   EntryGroupModel _rowToModel(EntryGroupsTableData row) {
@@ -36,7 +35,9 @@ class GroupsDao extends DatabaseAccessor<AppDatabase>
   }
 
   Future<void> updateGroup(EntryGroupModel group) async {
-    await (update(entryGroupsTable)..where((t) => t.id.equals(group.id)))
+    await (update(
+      entryGroupsTable,
+    )..where((t) => t.id.equals(group.id)))
         .write(_modelToCompanion(group));
   }
 
@@ -45,8 +46,9 @@ class GroupsDao extends DatabaseAccessor<AppDatabase>
   }
 
   Future<EntryGroupModel?> getGroupById(String id) async {
-    final row = await (select(entryGroupsTable)
-          ..where((t) => t.id.equals(id)))
+    final row = await (select(
+      entryGroupsTable,
+    )..where((t) => t.id.equals(id)))
         .getSingleOrNull();
     return row == null ? null : _rowToModel(row);
   }

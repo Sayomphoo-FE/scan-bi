@@ -33,6 +33,6 @@ extension DateExtensions on DateTime {
   DateTime get startOfMonth => DateTime(year, month, 1);
 
   /// End of the month (last millisecond)
-  DateTime get endOfMonth => DateTime(year, month + 1, 1)
-      .subtract(const Duration(milliseconds: 1));
+  DateTime get endOfMonth =>
+      DateTime(year, month + 1, 1).subtract(const Duration(milliseconds: 1));
 }

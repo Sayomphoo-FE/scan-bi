@@ -33,9 +33,7 @@ void main() async {
 
   runApp(
     ProviderScope(
-      overrides: [
-        databaseProvider.overrideWithValue(db),
-      ],
+      overrides: [databaseProvider.overrideWithValue(db)],
       child: const ScanBiApp(),
     ),
   );
@@ -43,24 +41,14 @@ void main() async {
 
 Future<void> _seedDefaultCurrencies(AppDatabase db) async {
   const defaultCurrencies = [
-    CurrencyModel(
-      code: 'THB',
-      name: 'Thai Baht',
-      symbol: '฿',
-      rateToBase: 1.0,
-    ),
+    CurrencyModel(code: 'THB', name: 'Thai Baht', symbol: '฿', rateToBase: 1.0),
     CurrencyModel(
       code: 'USD',
       name: 'US Dollar',
       symbol: '\$',
       rateToBase: 0.028,
     ),
-    CurrencyModel(
-      code: 'EUR',
-      name: 'Euro',
-      symbol: '€',
-      rateToBase: 0.026,
-    ),
+    CurrencyModel(code: 'EUR', name: 'Euro', symbol: '€', rateToBase: 0.026),
     CurrencyModel(
       code: 'JPY',
       name: 'Japanese Yen',

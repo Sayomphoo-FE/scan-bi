@@ -13,8 +13,7 @@ class AddEditGroupScreen extends ConsumerStatefulWidget {
   const AddEditGroupScreen({super.key, this.groupId});
 
   @override
-  ConsumerState<AddEditGroupScreen> createState() =>
-      _AddEditGroupScreenState();
+  ConsumerState<AddEditGroupScreen> createState() => _AddEditGroupScreenState();
 }
 
 class _AddEditGroupScreenState extends ConsumerState<AddEditGroupScreen> {
@@ -39,9 +38,8 @@ class _AddEditGroupScreenState extends ConsumerState<AddEditGroupScreen> {
   }
 
   Future<void> _loadGroup() async {
-    final group = await ref
-        .read(groupRepositoryProvider)
-        .getGroupById(widget.groupId!);
+    final group =
+        await ref.read(groupRepositoryProvider).getGroupById(widget.groupId!);
     if (group != null && mounted) {
       setState(() {
         _nameCtrl.text = group.name;
@@ -69,8 +67,7 @@ class _AddEditGroupScreenState extends ConsumerState<AddEditGroupScreen> {
       final groupRepo = ref.read(groupRepositoryProvider);
 
       if (_isEditMode) {
-        final existing =
-            await groupRepo.getGroupById(widget.groupId!);
+        final existing = await groupRepo.getGroupById(widget.groupId!);
         if (existing != null) {
           final updatedGroup = existing.copyWith(
             name: _nameCtrl.text.trim(),
@@ -80,7 +77,10 @@ class _AddEditGroupScreenState extends ConsumerState<AddEditGroupScreen> {
           );
           await groupRepo.updateGroup(updatedGroup);
           // Sync all entries' dates to match the group's new date
-          await groupRepo.updateGroupDateAndSyncEntries(widget.groupId!, _groupDate);
+          await groupRepo.updateGroupDateAndSyncEntries(
+            widget.groupId!,
+            _groupDate,
+          );
         }
       } else {
         final newId = await groupRepo.createGroup(
@@ -98,9 +98,9 @@ class _AddEditGroupScreenState extends ConsumerState<AddEditGroupScreen> {
       if (mounted) context.pop();
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error: $e')));
       }
     } finally {
       if (mounted) setState(() => _isLoading = false);
@@ -110,16 +110,16 @@ class _AddEditGroupScreenState extends ConsumerState<AddEditGroupScreen> {
   @override
   Widget build(BuildContext context) {
     if (_isLoadingGroup) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(_isEditMode
-            ? AppLocalizations.of(context)!.editGroup
-            : AppLocalizations.of(context)!.addGroup),
+        title: Text(
+          _isEditMode
+              ? AppLocalizations.of(context)!.editGroup
+              : AppLocalizations.of(context)!.addGroup,
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.pop(),
@@ -163,8 +163,9 @@ class _AddEditGroupScreenState extends ConsumerState<AddEditGroupScreen> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
-              tileColor: Theme.of(context).colorScheme.surfaceContainerHighest
-                  .withOpacity(0.5),
+              tileColor: Theme.of(
+                context,
+              ).colorScheme.surfaceContainerHighest.withOpacity(0.5),
             ),
             const SizedBox(height: 12),
             IconPickerWidget(

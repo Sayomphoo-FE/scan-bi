@@ -47,9 +47,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             onPreviousMonth: _previousMonth,
             onNextMonth: _nextMonth,
           ),
-          Expanded(
-            child: EntryListByDate(selectedMonth: _selectedMonth),
-          ),
+          Expanded(child: EntryListByDate(selectedMonth: _selectedMonth)),
         ],
       ),
       floatingActionButton: FloatingActionButton(

@@ -65,9 +65,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           ListTile(
             leading: const Icon(Icons.dark_mode_outlined),
             title: Text(AppLocalizations.of(context)!.darkMode),
-            subtitle: Text(_isDarkMode
-                ? AppLocalizations.of(context)!.dark
-                : AppLocalizations.of(context)!.light),
+            subtitle: Text(
+              _isDarkMode
+                  ? AppLocalizations.of(context)!.dark
+                  : AppLocalizations.of(context)!.light,
+            ),
             trailing: Switch(
               value: _isDarkMode,
               onChanged: (value) => _saveDarkMode(value),
@@ -87,20 +89,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     : (currencies.isNotEmpty ? currencies.first.code : null),
                 underline: const SizedBox.shrink(),
                 items: currencies
-                    .map((c) => DropdownMenuItem(
-                          value: c.code,
-                          child: Text(c.code),
-                        ))
+                    .map(
+                      (c) =>
+                          DropdownMenuItem(value: c.code, child: Text(c.code)),
+                    )
                     .toList(),
                 onChanged: (v) {
                   if (v != null) _saveBaseCurrency(v);
                 },
               ),
             ),
-            loading: () => ListTile(
-              title: Text(
-                  AppLocalizations.of(context)!.loading),
-            ),
+            loading: () =>
+                ListTile(title: Text(AppLocalizations.of(context)!.loading)),
             error: (e, _) => ListTile(title: Text('Error: $e')),
           ),
           ListTile(
@@ -168,7 +168,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             error: (e, _) => ListTile(
               leading: const Icon(Icons.account_circle_outlined),
               title: const Text('Sign in with Google'),
-              subtitle: const Text('Firebase not configured — sign-in unavailable'),
+              subtitle: const Text(
+                'Firebase not configured — sign-in unavailable',
+              ),
               enabled: false,
             ),
           ),

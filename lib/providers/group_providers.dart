@@ -13,7 +13,9 @@ final allGroupsProvider = StreamProvider<List<EntryGroupModel>>((ref) {
   return ref.watch(groupRepositoryProvider).watchAllGroups();
 });
 
-final groupByIdProvider =
-    StreamProvider.family<EntryGroupModel?, String>((ref, id) {
+final groupByIdProvider = StreamProvider.family<EntryGroupModel?, String>((
+  ref,
+  id,
+) {
   return ref.watch(groupRepositoryProvider).watchGroupById(id);
 });

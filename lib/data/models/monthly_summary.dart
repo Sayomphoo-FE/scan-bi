@@ -1,13 +1,8 @@
-import '../../core/constants.dart';
-
 class MonthlySummary {
   final double totalIncome;
   final double totalExpense;
 
-  const MonthlySummary({
-    required this.totalIncome,
-    required this.totalExpense,
-  });
+  const MonthlySummary({required this.totalIncome, required this.totalExpense});
 
   double get balance => totalIncome - totalExpense;
 

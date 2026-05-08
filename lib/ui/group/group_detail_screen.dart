@@ -24,7 +24,9 @@ class GroupDetailScreen extends ConsumerWidget {
         if (group == null) {
           return Scaffold(
             appBar: AppBar(title: Text(AppLocalizations.of(context)!.group)),
-            body: Center(child: Text(AppLocalizations.of(context)!.groupNotFound)),
+            body: Center(
+              child: Text(AppLocalizations.of(context)!.groupNotFound),
+            ),
           );
         }
 
@@ -57,11 +59,14 @@ class GroupDetailScreen extends ConsumerWidget {
                     children: [
                       CircleAvatar(
                         radius: 28,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.primaryContainer,
+                        backgroundColor: Theme.of(
+                          context,
+                        ).colorScheme.primaryContainer,
                         child: group.iconType == 'emoji'
-                            ? Text(group.iconValue,
-                                style: const TextStyle(fontSize: 26))
+                            ? Text(
+                                group.iconValue,
+                                style: const TextStyle(fontSize: 26),
+                              )
                             : const Icon(Icons.folder_outlined, size: 26),
                       ),
                       const SizedBox(width: 16),
@@ -69,13 +74,13 @@ class GroupDetailScreen extends ConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(group.name,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                            Text(
+                              group.name,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
                             const SizedBox(height: 4),
                             Text(
                               '${entries.length} items  •  ${total.toCurrencyString()}',
@@ -83,9 +88,9 @@ class GroupDetailScreen extends ConsumerWidget {
                                   .textTheme
                                   .bodyMedium
                                   ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSurfaceVariant,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurfaceVariant,
                                   ),
                             ),
                           ],
@@ -107,7 +112,9 @@ class GroupDetailScreen extends ConsumerWidget {
                       children: [
                         Icon(
                           Icons.calendar_today_outlined,
-                          color: Theme.of(context).colorScheme.onPrimaryContainer,
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onPrimaryContainer,
                         ),
                         const SizedBox(width: 12),
                         Column(
@@ -115,16 +122,30 @@ class GroupDetailScreen extends ConsumerWidget {
                           children: [
                             Text(
                               AppLocalizations.of(context)!.date,
-                              style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                                color: Theme.of(context).colorScheme.onPrimaryContainer.withOpacity(0.7),
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall
+                                  ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimaryContainer
+                                        .withOpacity(0.7),
+                                  ),
                             ),
                             Text(
-                              DateFormat('dd MMMM yyyy').format(DateTime.tryParse(group.createdAt) ?? DateTime.now()),
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                color: Theme.of(context).colorScheme.onPrimaryContainer,
-                                fontWeight: FontWeight.bold,
+                              DateFormat('dd MMMM yyyy').format(
+                                DateTime.tryParse(group.createdAt) ??
+                                    DateTime.now(),
                               ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onPrimaryContainer,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                             ),
                           ],
                         ),
@@ -138,7 +159,11 @@ class GroupDetailScreen extends ConsumerWidget {
               // Entries list
               Expanded(
                 child: entries.isEmpty
-                    ? Center(child: Text(AppLocalizations.of(context)!.noEntriesInGroup))
+                    ? Center(
+                        child: Text(
+                          AppLocalizations.of(context)!.noEntriesInGroup,
+                        ),
+                      )
                     : ListView.builder(
                         padding: const EdgeInsets.only(bottom: 100),
                         itemCount: entries.length,
@@ -156,8 +181,7 @@ class GroupDetailScreen extends ConsumerWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 FilledButton.icon(
-                  onPressed: () =>
-                      context.push('/entry/add?groupId=$groupId'),
+                  onPressed: () => context.push('/entry/add?groupId=$groupId'),
                   icon: const Icon(Icons.add),
                   label: Text(AppLocalizations.of(context)!.addEntryToGroup),
                 ),
@@ -167,10 +191,12 @@ class GroupDetailScreen extends ConsumerWidget {
                   style: OutlinedButton.styleFrom(
                     foregroundColor: Theme.of(context).colorScheme.error,
                     side: BorderSide(
-                        color: Theme.of(context).colorScheme.error),
+                      color: Theme.of(context).colorScheme.error,
+                    ),
                     minimumSize: const Size.fromHeight(48),
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12)),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
                   child: Text(AppLocalizations.of(context)!.deleteEntireGroup),
                 ),
@@ -245,8 +271,7 @@ class _EntryListTile extends StatelessWidget {
 
     return ListTile(
       leading: CircleAvatar(
-        backgroundColor:
-            Theme.of(context).colorScheme.surfaceContainerHighest,
+        backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
         child: entry.iconType == 'emoji'
             ? Text(entry.iconValue, style: const TextStyle(fontSize: 18))
             : const Icon(Icons.receipt, size: 18),
@@ -255,12 +280,11 @@ class _EntryListTile extends StatelessWidget {
       subtitle: Text(entry.occurredAt),
       trailing: Text(
         '$prefix${entry.currencyCode} ${entry.amount.toAmountString()}',
-        style: TextStyle(
-          color: amountColor,
-          fontWeight: FontWeight.bold,
-        ),
+        style: TextStyle(color: amountColor, fontWeight: FontWeight.bold),
       ),
-      onTap: () => GoRouter.of(context).push('/entry/${entry.id}/edit${entry.groupId != null ? '?groupId=${entry.groupId}' : ''}'),
+      onTap: () => GoRouter.of(context).push(
+        '/entry/${entry.id}/edit${entry.groupId != null ? '?groupId=${entry.groupId}' : ''}',
+      ),
     );
   }
 }

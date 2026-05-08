@@ -66,10 +66,7 @@ class _ReceiptScanSheetState extends State<ReceiptScanSheet> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              'Scan Receipt',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+            Text('Scan Receipt', style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 8),
             const Text(
               'Take a photo or select from gallery to auto-fill entry details.',
@@ -102,9 +99,7 @@ class _ReceiptScanSheetState extends State<ReceiptScanSheet> {
               const SizedBox(height: 16),
               Text(
                 _errorMessage!,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.error,
-                ),
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
               ),
             ],
           ],

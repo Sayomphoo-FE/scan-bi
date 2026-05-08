@@ -27,17 +27,13 @@ class ProgressBarWidget extends StatelessWidget {
               children: [
                 Flexible(
                   flex: (greenFlex * 1000).toInt(),
-                  child: Container(
-                    color: AppColors.progressGreen,
-                  ),
+                  child: Container(color: AppColors.progressGreen),
                 ),
                 if (animatedRedFlex > 0) ...[
                   const SizedBox(width: 2),
                   Flexible(
                     flex: (animatedRedFlex * 1000).toInt(),
-                    child: Container(
-                      color: AppColors.progressRed,
-                    ),
+                    child: Container(color: AppColors.progressRed),
                   ),
                 ],
               ],

@@ -9,8 +9,7 @@ class AppConstants {
   /// a secure configuration file excluded from version control (.env).
   static const String exchangeRateApiKey = 'YOUR_API_KEY_HERE';
 
-  static const String exchangeRateBaseUrl =
-      'https://openexchangerates.org/api';
+  static const String exchangeRateBaseUrl = 'https://openexchangerates.org/api';
 
   /// Default base currency code
   static const String defaultBaseCurrency = 'THB';

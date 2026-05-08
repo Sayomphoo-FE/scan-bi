@@ -29,7 +29,11 @@ class EntryListByDate extends ConsumerWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.receipt_long_outlined, size: 64, color: Colors.grey),
+                const Icon(
+                  Icons.receipt_long_outlined,
+                  size: 64,
+                  color: Colors.grey,
+                ),
                 const SizedBox(height: 16),
                 Text(
                   AppLocalizations.of(context)!.noEntriesThisMonth,
@@ -87,9 +91,7 @@ class EntryListByDate extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 DateGroupHeader(date: date, dayNet: dayNet),
-                ...standaloneEntries.map(
-                  (e) => StandaloneEntryRow(entry: e),
-                ),
+                ...standaloneEntries.map((e) => StandaloneEntryRow(entry: e)),
                 ...groupedByGroup.entries.map((ge) {
                   final group = groupMap[ge.key];
                   if (group == null) {
@@ -99,10 +101,7 @@ class EntryListByDate extends ConsumerWidget {
                           .toList(),
                     );
                   }
-                  return GroupEntryCard(
-                    group: group,
-                    entries: ge.value,
-                  );
+                  return GroupEntryCard(group: group, entries: ge.value);
                 }),
                 if (index < sortedDates.length - 1)
                   const Divider(height: 16, thickness: 0.5),

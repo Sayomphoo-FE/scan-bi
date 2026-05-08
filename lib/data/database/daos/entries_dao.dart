@@ -9,8 +9,7 @@ import '../../models/year_month.dart';
 part 'entries_dao.g.dart';
 
 @DriftAccessor(tables: [EntriesTable])
-class EntriesDao extends DatabaseAccessor<AppDatabase>
-    with _$EntriesDaoMixin {
+class EntriesDao extends DatabaseAccessor<AppDatabase> with _$EntriesDaoMixin {
   EntriesDao(super.db);
 
   // Convert DB row to model
@@ -56,7 +55,9 @@ class EntriesDao extends DatabaseAccessor<AppDatabase>
   }
 
   Future<void> updateEntry(EntryModel entry) async {
-    await (update(entriesTable)..where((t) => t.id.equals(entry.id)))
+    await (update(
+      entriesTable,
+    )..where((t) => t.id.equals(entry.id)))
         .write(_modelToCompanion(entry));
   }
 
@@ -69,8 +70,9 @@ class EntriesDao extends DatabaseAccessor<AppDatabase>
   }
 
   Future<EntryModel?> getEntryById(String id) async {
-    final row = await (select(entriesTable)
-          ..where((t) => t.id.equals(id)))
+    final row = await (select(
+      entriesTable,
+    )..where((t) => t.id.equals(id)))
         .getSingleOrNull();
     return row == null ? null : _rowToModel(row);
   }
@@ -86,9 +88,11 @@ class EntriesDao extends DatabaseAccessor<AppDatabase>
   /// Watch entries for a specific month
   Stream<List<EntryModel>> watchEntriesForMonth(YearMonth yearMonth) {
     return (select(entriesTable)
-          ..where((t) =>
-              t.occurredAt.isBiggerOrEqualValue(yearMonth.startDateString) &
-              t.occurredAt.isSmallerOrEqualValue(yearMonth.endDateString))
+          ..where(
+            (t) =>
+                t.occurredAt.isBiggerOrEqualValue(yearMonth.startDateString) &
+                t.occurredAt.isSmallerOrEqualValue(yearMonth.endDateString),
+          )
           ..orderBy([(t) => OrderingTerm.desc(t.occurredAt)]))
         .watch()
         .map((rows) => rows.map(_rowToModel).toList());

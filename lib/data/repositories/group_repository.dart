@@ -46,9 +46,7 @@ class GroupRepository {
     // Update group's created date
     final group = await _db.groupsDao.getGroupById(groupId);
     if (group != null) {
-      final updatedGroup = group.copyWith(
-        createdAt: newDate.toIso8601String(),
-      );
+      final updatedGroup = group.copyWith(createdAt: newDate.toIso8601String());
       await _db.groupsDao.updateGroup(updatedGroup);
 
       // Update all entries in this group to have the same date
