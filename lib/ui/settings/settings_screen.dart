@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/constants.dart';
+import '../../l10n/app_localizations.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/currency_providers.dart';
 
@@ -16,11 +17,25 @@ class SettingsScreen extends ConsumerStatefulWidget {
 
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   String _baseCurrency = AppConstants.defaultBaseCurrency;
+  bool _isDarkMode = false;
 
   @override
   void initState() {
     super.initState();
     _loadBaseCurrency();
+    _loadDarkMode();
+  }
+
+  Future<void> _loadDarkMode() async {
+    final prefs = await SharedPreferences.getInstance();
+    final isDark = prefs.getBool('dark_mode') ?? false;
+    if (mounted) setState(() => _isDarkMode = isDark);
+  }
+
+  Future<void> _saveDarkMode(bool isDark) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('dark_mode', isDark);
+    setState(() => _isDarkMode = isDark);
   }
 
   Future<void> _loadBaseCurrency() async {
@@ -42,15 +57,29 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final currenciesAsync = ref.watch(allCurrenciesProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.settings)),
       body: ListView(
         children: [
+          const _SectionHeader('Display'),
+          // Dark mode toggle
+          ListTile(
+            leading: const Icon(Icons.dark_mode_outlined),
+            title: Text(AppLocalizations.of(context)!.darkMode),
+            subtitle: Text(_isDarkMode
+                ? AppLocalizations.of(context)!.dark
+                : AppLocalizations.of(context)!.light),
+            trailing: Switch(
+              value: _isDarkMode,
+              onChanged: (value) => _saveDarkMode(value),
+            ),
+          ),
+          const Divider(),
           const _SectionHeader('Finance'),
           // Base currency
           currenciesAsync.when(
             data: (currencies) => ListTile(
               leading: const Icon(Icons.swap_horiz_outlined),
-              title: const Text('Base Currency'),
+              title: Text(AppLocalizations.of(context)!.currencyCode),
               subtitle: Text(_baseCurrency),
               trailing: DropdownButton<String>(
                 value: currencies.any((c) => c.code == _baseCurrency)
@@ -68,7 +97,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 },
               ),
             ),
-            loading: () => const ListTile(title: Text('Loading currencies...')),
+            loading: () => ListTile(
+              title: Text(
+                  AppLocalizations.of(context)!.loading),
+            ),
             error: (e, _) => ListTile(title: Text('Error: $e')),
           ),
           ListTile(

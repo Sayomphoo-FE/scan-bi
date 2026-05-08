@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../../providers/group_providers.dart';
 import '../entry/widgets/icon_picker_widget.dart';
 
@@ -110,8 +111,13 @@ class _AddEditGroupScreenState extends ConsumerState<AddEditGroupScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(_isEditMode ? 'Edit Group' : 'New Group'),
-        automaticallyImplyLeading: false,
+        title: Text(_isEditMode
+            ? AppLocalizations.of(context)!.editGroup
+            : AppLocalizations.of(context)!.addGroup),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => context.pop(),
+        ),
       ),
       body: Form(
         key: _formKey,

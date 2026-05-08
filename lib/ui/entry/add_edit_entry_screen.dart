@@ -311,7 +311,7 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
             // Date picker (only show if not in a group)
             if (widget.groupId == null) ...[
               ListTile(
-                contentPadding: const EdgeInsets.only(left: 0),
+                contentPadding: const EdgeInsets.only(left: 4),
                 leading: const Icon(Icons.calendar_today_outlined),
                 title: Text(
                   DateFormat('dd MMM yyyy').format(_occurredAt),

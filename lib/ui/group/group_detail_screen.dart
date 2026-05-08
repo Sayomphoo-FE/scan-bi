@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/extensions/number_extensions.dart';
+import '../../l10n/app_localizations.dart';
 import '../../data/models/entry.dart';
 import '../../providers/entry_providers.dart';
 import '../../providers/group_providers.dart';
@@ -32,11 +33,15 @@ class GroupDetailScreen extends ConsumerWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text(group.name),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () => context.pop(),
+            ),
             actions: [
               IconButton(
                 icon: const Icon(Icons.edit_outlined),
                 onPressed: () => context.push('/group/$groupId/edit'),
-                tooltip: 'Edit Group',
+                tooltip: AppLocalizations.of(context)!.editGroup,
               ),
             ],
           ),
