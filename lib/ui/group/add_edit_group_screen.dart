@@ -111,6 +111,7 @@ class _AddEditGroupScreenState extends ConsumerState<AddEditGroupScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_isEditMode ? 'Edit Group' : 'New Group'),
+        automaticallyImplyLeading: false,
       ),
       body: Form(
         key: _formKey,

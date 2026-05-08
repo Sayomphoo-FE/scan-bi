@@ -25,7 +25,7 @@ class StandaloneEntryRow extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            '$prefix${entry.currencyCode} ${entry.amount.toStringAsFixed(2)}',
+            '$prefix${entry.currencyCode} ${entry.amount.toAmountString()}',
             style: theme.textTheme.bodyMedium?.copyWith(
               color: amountColor,
               fontWeight: FontWeight.bold,
@@ -33,7 +33,7 @@ class StandaloneEntryRow extends StatelessWidget {
           ),
           if (entry.currencyCode != 'THB')
             Text(
-              '฿${entry.amountBase.toStringAsFixed(2)}',
+              entry.amountBase.toCurrencyString(),
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),

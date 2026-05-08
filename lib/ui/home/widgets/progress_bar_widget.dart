@@ -16,7 +16,7 @@ class ProgressBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TweenAnimationBuilder<double>(
       duration: const Duration(milliseconds: 600),
-      tween: Tween<double>(begin: 1.0, end: redFlex),
+      tween: Tween<double>(begin: redFlex == 0 ? 0 : 0.5, end: redFlex),
       curve: Curves.easeInOut,
       builder: (context, animatedRedFlex, _) {
         return ClipRRect(
@@ -26,18 +26,20 @@ class ProgressBarWidget extends StatelessWidget {
             child: Row(
               children: [
                 Flexible(
-                  flex: (greenFlex * 100).toInt(),
+                  flex: (greenFlex * 1000).toInt(),
                   child: Container(
                     color: AppColors.progressGreen,
                   ),
                 ),
-                const SizedBox(width: 2),
-                Flexible(
-                  flex: (animatedRedFlex * 100).toInt(),
-                  child: Container(
-                    color: AppColors.progressRed,
+                if (animatedRedFlex > 0) ...[
+                  const SizedBox(width: 2),
+                  Flexible(
+                    flex: (animatedRedFlex * 1000).toInt(),
+                    child: Container(
+                      color: AppColors.progressRed,
+                    ),
                   ),
-                ),
+                ],
               ],
             ),
           ),

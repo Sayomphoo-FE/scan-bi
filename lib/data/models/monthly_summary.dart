@@ -14,20 +14,21 @@ class MonthlySummary {
   double get expensePercent =>
       totalIncome == 0 ? 0 : (totalExpense / totalIncome * 100);
 
-  /// Flex value for the red (expense) section of the progress bar.
-  /// Clamped between [AppConstants.progressBarMinRedFlex] and [AppConstants.progressBarMaxRedFlex].
-  double get redFlex {
-    if (totalIncome == 0) return AppConstants.progressBarMaxRedFlex;
-    if (balance <= 0) return AppConstants.progressBarMaxRedFlex;
-    final ratio = totalExpense / totalIncome;
-    return ratio.clamp(
-      AppConstants.progressBarMinRedFlex,
-      AppConstants.progressBarMaxRedFlex,
-    );
+  /// Flex value for the green (income) section of the progress bar.
+  /// Represents the proportion of income to total (income + expense).
+  double get greenFlex {
+    final total = totalIncome + totalExpense;
+    if (total == 0) return 1.0;
+    return totalIncome / total;
   }
 
-  /// Flex value for the green (remaining) section — always 1.
-  double get greenFlex => 1.0;
+  /// Flex value for the red (expense) section of the progress bar.
+  /// Represents the proportion of expense to total (income + expense).
+  double get redFlex {
+    final total = totalIncome + totalExpense;
+    if (total == 0) return 1.0;
+    return totalExpense / total;
+  }
 
   const MonthlySummary.empty()
       : totalIncome = 0,

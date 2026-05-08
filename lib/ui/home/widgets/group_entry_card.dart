@@ -66,7 +66,7 @@ class _GroupEntryCardState extends State<GroupEntryCard> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        '฿${total.toStringAsFixed(2)}',
+                        total.toCurrencyString(),
                         style: theme.textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: const Color(0xFFF44336),

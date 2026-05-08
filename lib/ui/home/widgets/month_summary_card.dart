@@ -50,46 +50,48 @@ class MonthSummaryCard extends ConsumerWidget {
               ],
             ),
             const SizedBox(height: 8),
-            // Summary data
+            // Summary data - 3 lines layout
             summaryAsync.when(
               data: (summary) => Column(
                 children: [
+                  // Line 1: Balance (large)
+                  Text(
+                    summary.balance.toCurrencyString(),
+                    style: theme.textTheme.displaySmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: summary.balance >= 0
+                          ? const Color(0xFF4CAF50)
+                          : const Color(0xFFF44336),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  
+                  // Line 2: Income & Expense with percentages
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Expanded(
-                        child: _SummaryItem(
+                        child: _SummaryItemSmall(
                           label: 'Income',
                           amount: summary.totalIncome,
                           color: const Color(0xFF4CAF50),
                         ),
                       ),
                       Expanded(
-                        child: _SummaryItem(
+                        child: _SummaryItemSmall(
                           label: 'Expense',
                           amount: summary.totalExpense,
+                          subLabel: summary.totalIncome > 0
+                              ? '${summary.expensePercent.toStringAsFixed(1)}%'
+                              : '0%',
                           color: const Color(0xFFF44336),
-                        ),
-                      ),
-                      Expanded(
-                        child: _SummaryItem(
-                          label: 'Balance',
-                          amount: summary.balance,
-                          color: summary.balance >= 0
-                              ? const Color(0xFF4CAF50)
-                              : const Color(0xFFF44336),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 4),
-                  if (summary.totalIncome > 0)
-                    Text(
-                      '${summary.expensePercent.toStringAsFixed(1)}% spent',
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                    ),
                   const SizedBox(height: 12),
+                  
+                  // Line 3: Progress bar
                   ProgressBarWidget(
                     greenFlex: summary.greenFlex,
                     redFlex: summary.redFlex,
@@ -133,7 +135,7 @@ class _SummaryItem extends StatelessWidget {
         ),
         const SizedBox(height: 2),
         Text(
-          '฿${amount.toStringAsFixed(2)}',
+          amount.toCurrencyString(),
           style: theme.textTheme.bodyMedium?.copyWith(
             color: color,
             fontWeight: FontWeight.bold,
@@ -141,6 +143,52 @@ class _SummaryItem extends StatelessWidget {
           ),
           overflow: TextOverflow.ellipsis,
         ),
+      ],
+    );
+  }
+}
+
+class _SummaryItemSmall extends StatelessWidget {
+  final String label;
+  final double amount;
+  final String? subLabel;
+  final Color color;
+
+  const _SummaryItemSmall({
+    required this.label,
+    required this.amount,
+    this.subLabel,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Column(
+      children: [
+        Text(
+          label,
+          style: theme.textTheme.bodySmall?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          amount.toCurrencyString(),
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: color,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        if (subLabel != null) ...[
+          const SizedBox(height: 2),
+          Text(
+            subLabel!,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ],
       ],
     );
   }

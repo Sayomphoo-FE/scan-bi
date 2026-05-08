@@ -298,23 +298,25 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
             ),
             const SizedBox(height: 12),
 
-            // Date picker
-            ListTile(
-              contentPadding: EdgeInsets.zero,
-              leading: const Icon(Icons.calendar_today_outlined),
-              title: Text(
-                DateFormat('dd MMM yyyy').format(_occurredAt),
-                style: theme.textTheme.bodyLarge,
+            // Date picker (only show if not in a group)
+            if (widget.groupId == null) ...[
+              ListTile(
+                contentPadding: const EdgeInsets.only(left: 0),
+                leading: const Icon(Icons.calendar_today_outlined),
+                title: Text(
+                  DateFormat('dd MMM yyyy').format(_occurredAt),
+                  style: theme.textTheme.bodyLarge,
+                ),
+                subtitle: const Text('Date'),
+                onTap: _pickDate,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                tileColor: theme.colorScheme.surfaceContainerHighest
+                    .withOpacity(0.5),
               ),
-              subtitle: const Text('Date'),
-              onTap: _pickDate,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              tileColor: theme.colorScheme.surfaceContainerHighest
-                  .withOpacity(0.5),
-            ),
-            const SizedBox(height: 24),
+              const SizedBox(height: 24),
+            ],
 
             // Save button
             FilledButton(

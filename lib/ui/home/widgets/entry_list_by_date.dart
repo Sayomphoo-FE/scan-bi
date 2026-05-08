@@ -103,6 +103,8 @@ class EntryListByDate extends ConsumerWidget {
                     entries: ge.value,
                   );
                 }),
+                if (index < sortedDates.length - 1)
+                  const Divider(height: 16, thickness: 0.5),
               ],
             );
           },

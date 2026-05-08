@@ -70,7 +70,7 @@ class GroupDetailScreen extends ConsumerWidget {
                                       fontWeight: FontWeight.bold,
                                     )),
                             Text(
-                              '${entries.length} items  •  ฿${total.toStringAsFixed(2)}',
+                              '${entries.length} items  •  ${total.toCurrencyString()}',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium
@@ -196,7 +196,7 @@ class _EntryListTile extends StatelessWidget {
       title: Text(entry.title),
       subtitle: Text(entry.occurredAt),
       trailing: Text(
-        '$prefix${entry.currencyCode} ${entry.amount.toStringAsFixed(2)}',
+        '$prefix${entry.currencyCode} ${entry.amount.toAmountString()}',
         style: TextStyle(
           color: amountColor,
           fontWeight: FontWeight.bold,

@@ -43,7 +43,7 @@ class DateGroupHeader extends StatelessWidget {
             ),
           ),
           Text(
-            '$netPrefix฿${dayNet.abs().toStringAsFixed(2)}',
+            '$netPrefix${dayNet.abs().toCurrencyString()}',
             style: theme.textTheme.labelMedium?.copyWith(
               color: netColor,
               fontWeight: FontWeight.w600,
