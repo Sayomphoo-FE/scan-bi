@@ -9,6 +9,7 @@ import '../../data/models/currency.dart';
 import '../../providers/entry_providers.dart';
 import '../../providers/currency_providers.dart';
 import '../../core/constants.dart';
+import '../../l10n/app_localizations.dart';
 import 'widgets/icon_picker_widget.dart';
 import 'widgets/currency_selector.dart';
 import 'widgets/receipt_scan_sheet.dart';
@@ -143,22 +144,24 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
   }
 
   Future<void> _delete() async {
+    final ctx = context;
+    final l10n = AppLocalizations.of(ctx)!;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Delete Entry'),
-        content: const Text('Are you sure you want to delete this entry?'),
+        title: Text(l10n.deleteEntry),
+        content: Text(l10n.deleteEntryConfirm),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
             style: FilledButton.styleFrom(
               backgroundColor: Theme.of(ctx).colorScheme.error,
             ),
-            child: const Text('Delete'),
+            child: Text(l10n.deleteEntry),
           ),
         ],
       ),
@@ -214,12 +217,16 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(_isEditMode ? 'Edit Entry' : 'Add Entry'),
+        title: Text(
+          _isEditMode
+              ? AppLocalizations.of(context)!.editEntry
+              : AppLocalizations.of(context)!.addEntry,
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.document_scanner_outlined),
             onPressed: _openReceiptScan,
-            tooltip: 'Scan Receipt',
+            tooltip: AppLocalizations.of(context)!.scanReceipt,
           ),
         ],
       ),
@@ -230,16 +237,16 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
           children: [
             // Type toggle
             SegmentedButton<String>(
-              segments: const [
+              segments: [
                 ButtonSegment(
                   value: 'income',
-                  label: Text('Income'),
-                  icon: Icon(Icons.arrow_upward, color: Color(0xFF4CAF50)),
+                  label: Text(AppLocalizations.of(context)!.income),
+                  icon: const Icon(Icons.arrow_upward, color: Color(0xFF4CAF50)),
                 ),
                 ButtonSegment(
                   value: 'expense',
-                  label: Text('Expense'),
-                  icon: Icon(Icons.arrow_downward, color: Color(0xFFF44336)),
+                  label: Text(AppLocalizations.of(context)!.expense),
+                  icon: const Icon(Icons.arrow_downward, color: Color(0xFFF44336)),
                 ),
               ],
               selected: {_type},
@@ -250,12 +257,14 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
             // Title
             TextFormField(
               controller: _titleCtrl,
-              decoration: const InputDecoration(
-                labelText: 'Title',
-                hintText: 'e.g. Lunch at restaurant',
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.title,
+                hintText: AppLocalizations.of(context)!.titleHint,
               ),
               validator: (v) =>
-                  v == null || v.trim().isEmpty ? 'Title is required' : null,
+                  v == null || v.trim().isEmpty
+                      ? AppLocalizations.of(context)!.titleRequired
+                      : null,
             ),
             const SizedBox(height: 12),
 
@@ -275,16 +284,17 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
             // Amount
             TextFormField(
               controller: _amountCtrl,
-              decoration: const InputDecoration(
-                labelText: 'Amount',
-                hintText: '0.00',
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.amount,
+                hintText: AppLocalizations.of(context)!.amountHint,
               ),
               keyboardType:
                   const TextInputType.numberWithOptions(decimal: true),
               validator: (v) {
-                if (v == null || v.trim().isEmpty) return 'Amount is required';
+                if (v == null || v.trim().isEmpty)
+                  return AppLocalizations.of(context)!.amountRequired;
                 if (double.tryParse(v.trim()) == null) {
-                  return 'Enter a valid number';
+                  return AppLocalizations.of(context)!.invalidNumber;
                 }
                 return null;
               },
@@ -307,7 +317,7 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
                   DateFormat('dd MMM yyyy').format(_occurredAt),
                   style: theme.textTheme.bodyLarge,
                 ),
-                subtitle: const Text('Date'),
+                subtitle: Text(AppLocalizations.of(context)!.date),
                 onTap: _pickDate,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -327,7 +337,9 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
                       width: 20,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : Text(_isEditMode ? 'Save Changes' : 'Add Entry'),
+                  : Text(_isEditMode
+                      ? AppLocalizations.of(context)!.saveChanges
+                      : AppLocalizations.of(context)!.addEntry),
             ),
 
             // Delete button (edit mode only)
@@ -343,7 +355,7 @@ class _AddEditEntryScreenState extends ConsumerState<AddEditEntryScreen> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: const Text('Delete Entry'),
+                child: Text(AppLocalizations.of(context)!.deleteEntry),
               ),
             ],
           ],

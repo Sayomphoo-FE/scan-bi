@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 import 'core/theme/app_theme.dart';
+import 'l10n/app_localizations.dart';
 import 'ui/home/home_screen.dart';
 import 'ui/entry/add_edit_entry_screen.dart';
 import 'ui/group/group_detail_screen.dart';
@@ -77,14 +78,12 @@ class ScanBiApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       locale: const Locale('th'),
       localizationsDelegates: const [
+        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [
-        Locale('en'),
-        Locale('th'),
-      ],
+      supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: _router,
       debugShowCheckedModeBanner: false,
     );
